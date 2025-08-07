@@ -9,7 +9,7 @@ Route::get('/', function () {
 });
 
 Route::get('/pencarian-sertifikat', function () {
-    return view('sertifikat.index');
+    return view('sertiuser.index');
 })->name('pencarian.sertifikat');
 
 // Halaman tambah sertifikat
