@@ -12,8 +12,8 @@
         <div>
             <h2 class="text-xl font-semibold mb-2">Navigasi</h2>
             <ul class="space-y-2 text-sm">
-                <li><a href="{{ url('/') }}" class="hover:text-yellow-400 transition">Beranda</a></li>
-                <li><a href="{{ url('/certificates') }}" class="hover:text-yellow-400 transition">Sertifikasi</a></li>
+                <li><a href="#beranda" class="hover:text-yellow-400 transition">Beranda</a></li>
+                <li><a href="{{ route('pencarian.sertifikat') }}" class="hover:text-yellow-400 transition">Sertifikasi</a></li>
             </ul>
         </div>
 

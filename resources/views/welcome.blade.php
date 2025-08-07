@@ -56,7 +56,7 @@
 </header>
 
 <!-- Hero Section -->
-<main class="pt-28 pb-16 px-4 transition-colors duration-300">
+<main id="beranda" class="pt-28 pb-16 px-4 transition-colors duration-300">
     <section class="relative bg-gradient-to-br from-blue-50 to-white py-24 px-6 rounded-lg overflow-hidden">
         <!-- Decorative Blobs -->
         <div class="absolute -top-20 -left-20 w-80 h-80 bg-blue-200 rounded-full mix-blend-multiply blur-2xl opacity-30 animate-pulse"></div>
@@ -71,7 +71,7 @@
                 <p class="text-lg text-gray-600 max-w-xl mx-auto md:mx-0">
                     Sistem pencarian sertifikat digital siswa dari kegiatan sekolah, pelatihan, dan program magang.
                 </p>
-                <a href="/"
+                <a href="{{ route('pencarian.sertifikat') }}"
                    class="mt-6 inline-block bg-blue-700 hover:bg-blue-800 text-white font-semibold px-8 py-3 rounded-full shadow-lg transition duration-300">
                     🎓 Mulai Cari Sertifikat
                 </a>
