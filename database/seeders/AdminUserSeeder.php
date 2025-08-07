@@ -16,16 +16,9 @@ class AdminUserSeeder extends Seeder
     {
         User::create([
         'name' => 'Admin Sekolah',
-        'email' => 'admin@sekolah.com',
-        'password' => Hash::make('admin123'),
+        'email' => 'smkpesat@smk.belajar.id',
+        'password' => Hash::make('sekolahpesat'),
         'role' => 'admin',
-    ]);
-
-    User::create([
-        'name' => 'PT Tech Solutions',
-        'email' => 'partner@company.com',
-        'password' => Hash::make('company123'),
-        'role' => 'perusahaan',
     ]);
     }
 }

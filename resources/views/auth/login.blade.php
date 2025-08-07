@@ -80,36 +80,6 @@
                     <form method="POST" action="{{ route('login') }}" class="space-y-6">
                         @csrf
 
-                        <!-- Account Type Selection -->
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-3">Masuk Sebagai *</label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <label class="relative cursor-pointer">
-                                    <input type="radio" name="user_type" value="admin" class="sr-only peer">
-                                    <div class="flex items-center justify-center p-3 border-2 border-gray-200 rounded-lg peer-checked:border-blue-900 peer-checked:bg-blue-50 hover:border-blue-300 transition-all">
-                                        <div class="flex items-center">
-                                            <div class="w-4 h-4 rounded-full border-2 border-gray-400 peer-checked:border-blue-900 mr-2 relative">
-                                                <div class="w-2 h-2 bg-blue-900 rounded-full absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 hidden peer-checked:block"></div>
-                                            </div>
-                                            <span class="text-sm font-medium text-gray-700">Admin Sekolah</span>
-                                        </div>
-                                    </div>
-                                </label>
-                                
-                                <label class="relative cursor-pointer">
-                                    <input type="radio" name="user_type" value="perusahaan" class="sr-only peer" checked>
-                                    <div class="flex items-center justify-center p-3 border-2 border-blue-900 bg-blue-50 rounded-lg hover:border-blue-800 transition-all">
-                                        <div class="flex items-center">
-                                            <svg class="w-5 h-5 mr-2 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
-                                                <path d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4z"/>
-                                            </svg>
-                                            <span class="text-sm font-medium text-blue-900">Perusahaan Mitra</span>
-                                        </div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-
                         <!-- Email Address -->
                         <div>
                             <x-input-label for="email" :value="__('Email')" class="text-gray-700 font-medium" />
