@@ -45,13 +45,8 @@
     <div id="mobile-menu" class="md:hidden px-4 pb-4 hidden bg-blue-700">
         <a href="#" class="block py-2 text-white hover:text-orange-300">Home</a>
         <a href="#" class="block py-2 text-white hover:text-orange-300">Sertifikat</a>
-        <a href="{{ route('login') }}"
-           class="block w-full text-center py-2 mt-2 bg-white/20 border border-white text-white hover:bg-white hover:text-blue-600 transition rounded">
-            Login
-        </a>
-        <a href="{{ route('register') }}"
-           class="block w-full text-center py-2 mt-2 bg-orange-400 text-white hover:bg-orange-500 transition rounded">
-            Register
+        <a href="{{ route('login') }}" class="px-4 py-1.5 rounded bg-orange-500 border border-white text-white hover:bg-white hover:text-blue-700 transition font-semibold text-sm">
+            Login Admin
         </a>
     </div>
 </header>
@@ -80,7 +75,7 @@
                 </span>
                 <input
                     type="text"
-                    placeholder="Masukkan jenis sertifikat..."
+                    placeholder="cari berdasarkan nama atau nis"
                     class="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
             </div>
