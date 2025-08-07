@@ -12,6 +12,10 @@ Route::get('/pencarian-sertifikat', function () {
     return view('sertifikat.index');
 })->name('pencarian.sertifikat');
 
+Route::get('/tambah-sertifikat', function () {
+    return view('sertifikat.create');
+})->name('tambah.sertifikat');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
