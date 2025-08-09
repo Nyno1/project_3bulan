@@ -9,30 +9,29 @@
       </section>
 
       <!-- Statistik -->
-      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-        <div class="bg-white rounded-lg shadow p-6 border-l-4 border-blue-600">
-          <h2 class="text-2xl font-semibold text-blue-900">120</h2>
-          <p class="text-gray-500">Total Sertifikat</p>
-        </div>
-        <div class="bg-white rounded-lg shadow p-6 border-l-4 border-orange-500">
-          <h2 class="text-2xl font-semibold text-blue-900">75</h2>
-          <p class="text-gray-500">Total Siswa</p>
-        </div>
-        <div class="bg-white rounded-lg shadow p-6 border-l-4 border-green-500">
-          <h2 class="text-2xl font-semibold text-blue-900">10</h2>
-          <p class="text-gray-500">Perusahaan Penilai</p>
-        </div>
-      </section>
+     <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+    <div class="bg-white rounded-lg shadow p-6 border-l-4 border-blue-600">
+        <h2 class="text-2xl font-semibold text-blue-900">{{ $totalSertifikasi }}</h2>
+        <p class="text-gray-500">Total Sertifikat</p>
+    </div>
+    <div class="bg-white rounded-lg shadow p-6 border-l-4 border-orange-500">
+        <h2 class="text-2xl font-semibold text-blue-900">{{ $totalSiswa }}</h2>
+        <p class="text-gray-500">Total Siswa</p>
+    </div>
+  
+</section>
+
 
       <!-- Aksi -->
       <section class="mb-10">
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
-          <h2 class="text-xl font-semibold text-blue-800">Sertifikat Terbaru</h2>
-          <button onclick="alert('Form tambah belum aktif')"
-            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition">
-            + Tambah Sertifikat
-          </button>
-        </div>
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+    <h2 class="text-xl font-semibold text-blue-800">Sertifikat Terbaru</h2>
+    <a href="{{ url('/sertifikat/create') }}"
+       class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition">
+        + Tambah Sertifikat
+    </a>
+</div>
+
 
         <!-- Tabel Sertifikat -->
         <div class="overflow-x-auto bg-white shadow rounded-lg">
@@ -47,23 +46,20 @@
               </tr>
             </thead>
             <tbody>
-              @php
-                $dummyData = [
-                  ['nama' => 'Rizky Ramadhan', 'nis' => '123456', 'judul' => 'Sertifikasi Laravel', 'perusahaan' => 'PT. Devtech', 'tahun' => '2025'],
-                  ['nama' => 'Nadia Zahra', 'nis' => '123457', 'judul' => 'Sertifikasi UI/UX', 'perusahaan' => 'CV. Kreatif', 'tahun' => '2025'],
-                  ['nama' => 'Fauzan Malik', 'nis' => '123458', 'judul' => 'Sertifikasi Database', 'perusahaan' => 'PT. DataCorp', 'tahun' => '2025'],
-                ];
-              @endphp
+            <tbody>
+    @foreach ($sertifikats as $sertif)
+    <tr class="border-b hover:bg-gray-50 transition">
+        <td class="px-6 py-4">{{ $sertif->nama_siswa }}</td>
+        <td class="px-6 py-4">{{ $sertif->nis }}</td>
+        <td class="px-6 py-4">{{ $sertif->jenis_sertifikat }}</td>
+        <td class="px-6 py-4">{{ $sertif->tanggal_diraih }}</td>
+        <td class="px-6 py-4">
+            <img src="{{ asset('storage/'.$sertif->foto_sertifikat) }}" alt="Foto Sertifikat" class="h-12">
+        </td>
+    </tr>
+    @endforeach
+</tbody>
 
-              @foreach ($dummyData as $sertif)
-              <tr class="border-b hover:bg-gray-50 transition">
-                <td class="px-6 py-4">{{ $sertif['nama'] }}</td>
-                <td class="px-6 py-4">{{ $sertif['nis'] }}</td>
-                <td class="px-6 py-4">{{ $sertif['judul'] }}</td>
-                <td class="px-6 py-4">{{ $sertif['perusahaan'] }}</td>
-                <td class="px-6 py-4">{{ $sertif['tahun'] }}</td>
-              </tr>
-              @endforeach
             </tbody>
           </table>
         </div>
