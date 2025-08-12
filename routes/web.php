@@ -29,6 +29,16 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/sertifikat/create', [SertifikatController::class, 'create'])->name('sertifikat.create');
     Route::post('/sertifikat/store', [SertifikatController::class, 'store'])->name('sertifikat.store');
+
 });
+
+// Route baru untuk pencarian
+Route::get('/cari-sertifikat', [SertifikatController::class, 'search'])->name('sertifikat.search');
+Route::post('/cari-sertifikat', [SertifikatController::class, 'doSearch'])->name('sertifikat.do-search');
+
+// API Routes untuk AJAX
+Route::post('/api/sertifikat/search', [SertifikatController::class, 'searchApi'])->name('sertifikat.search.api');
+Route::get('/sertifikat/{id}', [SertifikatController::class, 'show'])->name('sertifikat.show');
+Route::post('/api/sertifikat/verify', [SertifikatController::class, 'verify'])->name('sertifikat.verify');
 
 require __DIR__.'/auth.php';
