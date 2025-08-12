@@ -1,5 +1,5 @@
 <!-- Navbar Baru -->
-<header class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur border-b border-gray-200 dark:bg-gray-900/80 dark:border-gray-700 shadow-sm transition">
+<nav id="main-navbar" class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur border-b border-gray-200 dark:bg-gray-900/80 dark:border-gray-700 shadow-sm transition">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
             <!-- Logo + Brand -->
@@ -41,4 +41,4 @@
             <span class="relative z-10">Login Admin</span>
         </a>
     </div>
-</header>
+</nav>

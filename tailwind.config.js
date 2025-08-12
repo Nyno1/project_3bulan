@@ -21,9 +21,14 @@ export default {
                 '50%': { backgroundPosition: '100% 50%' },
                 '100%': { backgroundPosition: '0% 50%' },
                 },
+                float: {
+                '0%, 100%': { transform: 'translateY(0px)' },
+                '50%': { transform: 'translateY(-10px)' },
+                },
             },
             animation: {
                 gradient: 'gradientMove 3s ease infinite',
+                float: 'float 4s ease-in-out infinite',
             },
         },
     },
