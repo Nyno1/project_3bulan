@@ -104,13 +104,11 @@
 </main>
 @include('profile.partials.footer')
 
-<!-- AOS -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
         AOS.init({ duration: 700, once: true, offset: 60 });
 
-        /* Mobile menu toggle */
         const btn = document.getElementById('menu-toggle');
         const menu = document.getElementById('mobile-menu');
         btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
