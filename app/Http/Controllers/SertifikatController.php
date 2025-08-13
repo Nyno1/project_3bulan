@@ -33,6 +33,7 @@ class SertifikatController extends Controller
             'nis' => 'required',
             'nama_siswa' => 'required',
             'jenis_sertifikat' => 'required',
+            'judul_sertifikat' => 'required',
             'tanggal_diraih' => 'required|date',
             'foto_sertifikat' => 'required|image|mimes:jpg,jpeg,png|max:5120'
         ]);
@@ -44,6 +45,7 @@ class SertifikatController extends Controller
             'nis' => $request->nis,
             'nama_siswa' => $request->nama_siswa,
             'jenis_sertifikat' => $request->jenis_sertifikat,
+            'judul_sertifikat' => $request->judul_sertifikat,
             'tanggal_diraih' => $request->tanggal_diraih,
             'foto_sertifikat' => $fotoPath
         ]);

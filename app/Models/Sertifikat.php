@@ -10,6 +10,7 @@ class Sertifikat extends Model
     'nis',
     'nama_siswa',
     'jenis_sertifikat',
+    'judul_sertifikat',
     'tanggal_diraih',
     'foto_sertifikat',
 ];
