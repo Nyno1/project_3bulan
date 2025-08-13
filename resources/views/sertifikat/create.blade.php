@@ -58,78 +58,90 @@
 
                     <!-- NIS -->
                     <div class="relative">
-                        <label class="block text-sm font-semibold text-blue-900 mb-2 flex items-center">
+                        <label class="text-sm font-semibold text-blue-900 mb-2 flex items-center">
                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
                             </svg>
                             NIS
                         </label>
                         <input type="text" name="nis" required placeholder="Masukkan NIS Siswa"
-                            class="w-full border-2 border-blue-200 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-900 focus:ring-2 focus:ring-blue-100 transition-all duration-200 hover:border-blue-300">
+                            class="w-full border-2 border-blue-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 transition-all duration-200 cursor-pointer bg-white text-gray-700 font-medium hover:border-blue-300">
                     </div>
 
                     <!-- Nama Siswa -->
                     <div class="relative">
-                        <label class="block text-sm font-semibold text-blue-900 mb-2 flex items-center">
+                        <label class="text-sm font-semibold text-blue-900 mb-2 flex items-center">
                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                             </svg>
                             Nama Siswa
                         </label>
                         <input type="text" name="nama_siswa" required placeholder="Masukkan Nama Siswa"
-                            class="w-full border-2 border-blue-200 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-900 focus:ring-2 focus:ring-blue-100 transition-all duration-200 hover:border-blue-300">
+                            class="w-full border-2 border-blue-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 transition-all duration-200 cursor-pointer bg-white text-gray-700 font-medium hover:border-blue-300">
                     </div>
 
-                    <!-- Jenis Sertifikat - Dropdown -->
-                    <div class="relative">
-                        <label class="block text-sm font-semibold text-blue-900 mb-2 flex items-center">
-                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                            </svg>
-                            Jenis Sertifikat
-                        </label>
-                        <div class="relative">
-                        <select name="jenis_sertifikat" id="jenis_sertifikat" required class="w-full border-2 border-blue-200 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-900 focus:ring-2 focus:ring-blue-100 transition-all duration-200 hover:border-blue-300 appearance-none bg-white cursor-pointer">
-                            <option value="" disabled selected class="text-gray-400">Pilih Jenis Sertifikat</option>
-                            <option value="Sertifikat Kompetensi" class="py-2">Sertifikat Kompetensi</option>
-                            <option value="Sertifikat BNSP" class="py-2">Sertifikat BNSP</option>
-                            <option value="Sertifikat Internasional" class="py-2">Sertifikat Internasional</option>
-                        </select>
-                        <!-- Custom dropdown arrow -->
-                        <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                            <svg class="w-5 h-5 text-blue-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <!-- Jenis Sertifikat Modern -->
+                        <div class="w-full md:w-1/2">
+                            <label for="jenis_sertifikat" class="text-sm font-semibold text-blue-900 mb-2 flex items-center">
+                                <svg class="w-4 h-4 mr-1 text-blue-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 
+                                        3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 
+                                        00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 
+                                        3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 
+                                        3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 
+                                        3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 
+                                        00-.806-1.946 3.42 3.42 0 010-4.438 
+                                        3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z">
+                                    </path>
+                                </svg>
+                                Jenis Sertifikat
+                            </label>
+                            <div class="relative">
+                                <select name="jenis_sertifikat" id="jenis_sertifikat" class="peer w-full border-2 border-blue-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 transition-all duration-200 cursor-pointer bg-white text-gray-700 font-medium hover:border-blue-300 appearance-none" required>
+                                    <option value="" disabled selected class="text-gray-400">Pilih Jenis Sertifikat</option>
+                                    <option value="Sertifikat Kompetensi">Sertifikat Kompetensi</option>
+                                    <option value="Sertifikat BNSP">Sertifikat BNSP</option>
+                                    <option value="Sertifikat Internasional">Sertifikat Internasional</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                    <svg class="w-5 h-5 text-blue-900 transition-transform duration-200 peer-focus:rotate-180" 
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Judul Sertifikat -->
-                    <div class="relative">
-                        <label class="block text-sm font-semibold text-blue-900 mb-2 flex items-center">
-                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
-                            </svg>
-                            Judul Sertifikat
-                        </label>
-                        <input type="text" name="judul_sertifikat" required placeholder="Masukkan Judul Sertifikat"
-                            class="w-full border-2 border-blue-200 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-900 focus:ring-2 focus:ring-blue-100 transition-all duration-200 hover:border-blue-300">
+                        <!-- Judul Sertifikat -->
+                        <div class="w-full md:w-1/2">
+                            <label class="text-sm font-semibold text-blue-900 mb-2 flex items-center">
+                                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                                </svg>
+                                Judul Sertifikat
+                            </label>
+                            <input type="text" name="judul_sertifikat" required placeholder="Masukkan Judul Sertifikat"
+                                class="w-full border-2 border-blue-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 transition-all duration-200 cursor-pointer bg-white text-gray-700 font-medium hover:border-blue-300">
+                        </div>
                     </div>
 
                     <!-- Tanggal Diraih -->
                     <div class="relative">
-                        <label class="block text-sm font-semibold text-blue-900 mb-2 flex items-center">
+                        <label class="text-sm font-semibold text-blue-900 mb-2 flex items-center">
                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
                             Tanggal Diraih
                         </label>
                         <input type="date" name="tanggal_diraih" required
-                            class="w-full border-2 border-blue-200 rounded-lg px-4 py-3 focus:outline-none focus:border-blue-900 focus:ring-2 focus:ring-blue-100 transition-all duration-200 hover:border-blue-300">
+                            class="w-full border-2 border-blue-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 transition-all duration-200 cursor-pointer bg-white text-gray-700 font-medium hover:border-blue-300">
                     </div>
 
                     <!-- Foto Sertifikat -->
                     <div class="relative">
-                        <label class="block text-sm font-semibold text-blue-900 mb-2 flex items-center">
+                        <label class="text-sm font-semibold text-blue-900 mb-2 flex items-center">
                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                             </svg>
@@ -167,7 +179,6 @@
         </div>
     </div>
 
-    <!-- Preview Script -->
     <script>
         function previewImage(event) {
             const preview = document.getElementById('preview');
