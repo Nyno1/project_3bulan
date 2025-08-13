@@ -40,6 +40,7 @@
               <tr>
                 <th class="px-6 py-3 text-blue-800 font-semibold">Nama Siswa</th>
                 <th class="px-6 py-3 text-blue-800 font-semibold">NIS</th>
+                <th class="px-6 py-3 text-blue-800 font-semibold">Jenis Sertifikat</th>
                 <th class="px-6 py-3 text-blue-800 font-semibold">Judul Sertifikat</th>
                 <th class="px-6 py-3 text-blue-800 font-semibold">Perusahaan</th>
                 <th class="px-6 py-3 text-blue-800 font-semibold">Tahun</th>
@@ -52,6 +53,7 @@
         <td class="px-6 py-4">{{ $sertif->nama_siswa }}</td>
         <td class="px-6 py-4">{{ $sertif->nis }}</td>
         <td class="px-6 py-4">{{ $sertif->jenis_sertifikat }}</td>
+        <td class="px-6 py-4">{{ $sertif->judul_sertifikat }}</td>
         <td class="px-6 py-4">{{ $sertif->tanggal_diraih }}</td>
         <td class="px-6 py-4">
             <img src="{{ asset('storage/'.$sertif->foto_sertifikat) }}" alt="Foto Sertifikat" class="h-12">
