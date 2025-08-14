@@ -38,9 +38,7 @@
             <!-- Logo -->
             <div class="flex items-center justify-center h-16">
                 <h1 class="flex items-center font-bold text-gray-800 space-x-3">
-                    <div class="bg-white rounded-full p-1 shadow-md">
-                        <img src="/images/logo.png" alt="Logo" class="w-15 h-8">
-                    </div>
+                    <img src="/images/logo.png" alt="Logo" class="w-15 h-8">
                     <span x-show="open">Sertifikat Digital</span>
                 </h1>
             </div>
