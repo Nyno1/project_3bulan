@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sertifikat;
+use App\Models\User;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SertifikatController extends Controller
@@ -19,7 +21,15 @@ class SertifikatController extends Controller
         // Hitung total siswa unik (berdasarkan NIS)
         $totalSiswa = Sertifikat::distinct('nis')->count('nis');
 
-        return view('dashboard', compact('sertifikats', 'totalSertifikasi', 'totalSiswa'));
+        // Hitung total admin aktif (misal role = 'admin')
+        $totalAdminAktif = User::where('role', 'admin')->count();
+
+        // Total sertifikat yang diraih bulan ini
+        $totalSertifikatBulanIni = Sertifikat::whereMonth('tanggal_diraih', Carbon::now()->month)
+            ->whereYear('tanggal_diraih', Carbon::now()->year)
+            ->count();
+
+        return view('dashboard', compact('sertifikats', 'totalSertifikasi', 'totalSiswa', 'totalSertifikatBulanIni', 'totalAdminAktif'));
     }
 
     public function create()
