@@ -42,8 +42,8 @@
                 <th class="px-6 py-3 text-blue-800 font-semibold">NIS</th>
                 <th class="px-6 py-3 text-blue-800 font-semibold">Jenis Sertifikat</th>
                 <th class="px-6 py-3 text-blue-800 font-semibold">Judul Sertifikat</th>
-                <th class="px-6 py-3 text-blue-800 font-semibold">Perusahaan</th>
-                <th class="px-6 py-3 text-blue-800 font-semibold">Tahun</th>
+                <th class="px-6 py-3 text-blue-800 font-semibold">tanggal</th>
+                <th class="px-6 py-3 text-blue-800 font-semibold">sertifikat</th>
               </tr>
             </thead>
             <tbody>
