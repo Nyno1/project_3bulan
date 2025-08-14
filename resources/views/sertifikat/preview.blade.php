@@ -1,16 +1,16 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-2xl text-gray-900 leading-tight tracking-wide flex items-center gap-2">
-            <!-- Ikon Excel -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="28" height="28">
-                <path fill="#185c37" d="M42,4H14c-1.1,0-2,0.9-2,2v36c0,1.1,0.9,2,2,2h28c1.1,0,2-0.9,2-2V6C44,4.9,43.1,4,42,4z"/>
-                <path fill="#21a366" d="M14 4h14v40H14z"/>
-                <path fill="#fff" d="M24.5 29.5h-3.6l-2.5-4.5-2.5 4.5H12l4-7-4-7h3.9l2.5 4.5 2.5-4.5h3.6l-4 7z"/>
-            </svg>
-            Preview Sertifikat
-        </h2>
-    </x-slot>
-
+    <div 
+        x-data="{
+            open: JSON.parse(localStorage.getItem('sidebarOpen') || 'true'),
+        }"
+        x-init="
+            window.addEventListener('sidebar-toggled', () => {
+                open = JSON.parse(localStorage.getItem('sidebarOpen'));
+            });
+        "
+        :class="open ? 'ml-64' : 'ml-16'"
+        class="transition-all duration-300"
+    >
     <div class="py-12 bg-gradient-to-br from-gray-50 to-gray-100">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-2xl sm:rounded-2xl border border-gray-200">

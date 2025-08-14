@@ -1,4 +1,16 @@
 <x-app-layout>
+    <div 
+    x-data="{
+        open: JSON.parse(localStorage.getItem('sidebarOpen') || 'true'),
+    }"
+    x-init="
+        window.addEventListener('sidebar-toggled', () => {
+            open = JSON.parse(localStorage.getItem('sidebarOpen'));
+        });
+    "
+    :class="open ? 'ml-64' : 'ml-16'"
+    class="transition-all duration-300"
+>
     <div class="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 py-12 px-4">
         <div class="max-w-2xl mx-auto">
             <!-- Header Section -->
