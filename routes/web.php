@@ -17,6 +17,16 @@ Route::get('/tambah-sertifikat', [SertifikatController::class, 'create'])
     ->middleware(['auth', 'verified'])
     ->name('tambah.sertifikat');
 
+// Halaman form upload foto sertifikat
+Route::get('/sertifikat/upload', function () {
+    return view('sertifikat.upload');
+})->middleware(['auth', 'verified'])->name('sertifikat.upload');
+
+// Proses simpan foto sertifikat
+Route::post('/sertifikat/upload', [SertifikatController::class, 'storePhoto'])
+    ->middleware(['auth', 'verified'])
+    ->name('sertifikat.upload.post');
+
 // Dashboard ambil data sertifikat terbaru
 Route::get('/dashboard', [SertifikatController::class, 'index'])
     ->middleware(['auth', 'verified'])

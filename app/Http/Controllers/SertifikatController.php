@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Sertifikat;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class SertifikatController extends Controller
@@ -288,6 +289,58 @@ class SertifikatController extends Controller
 
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat mengkonfirmasi impor data: ' . $e->getMessage());
+        }
+    }
+
+    public function storePhoto(Request $request)
+    {
+        $request->validate([
+            'nis' => [
+                'required',
+                'string',
+                // Validasi bahwa NIS harus ada di tabel 'sertifikats'.
+                // Ini penting agar foto hanya bisa ditautkan ke siswa yang sudah terdaftar.
+                'exists:sertifikats,nis',
+            ],
+            'foto_sertifikat' => 'required|image|mimes:jpg,jpeg,png|max:5120' // Maksimal 5MB
+        ]);
+
+        // Cari data sertifikat yang sudah ada untuk NIS ini.
+        // Kita akan menggunakan 'nama_siswa' dari sertifikat yang sudah ada.
+        // Untuk 'jenis_sertifikat', 'judul_sertifikat', 'tanggal_diraih' yang required,
+        // kita akan mengambil nilai dari sertifikat yang sudah ada, atau mengisi dengan default
+        // yang relevan untuk entri 'foto tambahan'.
+        $existingSertifikat = Sertifikat::where('nis', $request->nis)->first();
+
+        // Logika ini seharusnya tidak tercapai karena validasi 'exists:sertifikats,nis'
+        // sudah memastikan NIS ada. Namun, sebagai fallback, kita tetap cek.
+        if (!$existingSertifikat) {
+            return redirect()->back()->with('error', 'NIS tidak ditemukan di database.');
+        }
+
+        // Unggah foto sertifikat ke storage 'public/sertifikat_photos'
+        $fotoPath = $request->file('foto_sertifikat')->store('sertifikat_photos', 'public');
+
+        try {
+            // Buat entri Sertifikat baru untuk foto tambahan.
+            // Kolom 'nama_siswa' diisi dari data NIS yang sudah ada.
+            // Kolom lainnya diisi dengan nilai default atau dari data yang sudah ada
+            // agar sesuai dengan kebutuhan kolom non-nullable di database.
+            Sertifikat::create([
+                'nis' => $request->nis,
+                'nama_siswa' => $existingSertifikat->nama_siswa, // Ambil nama siswa dari data sertifikat yang sudah ada
+                'jenis_sertifikat' => $existingSertifikat->jenis_sertifikat, // Gunakan jenis sertifikat dari yang sudah ada
+                'judul_sertifikat' => $existingSertifikat->judul_sertifikat . ' (Foto Tambahan)', // Tambahkan penanda bahwa ini foto tambahan
+                'tanggal_diraih' => Carbon::now(), // Gunakan tanggal saat ini untuk entri foto tambahan
+                'foto_sertifikat' => $fotoPath, // Simpan path foto yang baru diunggah
+            ]);
+
+            return redirect()->back()->with('success', 'Foto sertifikat berhasil diunggah dan ditautkan ke NIS ' . $request->nis . '!');
+
+        } catch (\Exception $e) {
+            // Jika terjadi kesalahan saat menyimpan ke database, hapus foto yang sudah terlanjur diunggah
+            Storage::disk('public')->delete($fotoPath);
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage());
         }
     }
 }

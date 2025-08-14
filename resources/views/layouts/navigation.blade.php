@@ -15,6 +15,7 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">Beranda</x-nav-link>
                     <x-nav-link :href="route('tambah.sertifikat')" :active="request()->routeIs('tambah.sertifikat')">Tambah Sertifikat</x-nav-link>
                     <x-nav-link :href="route('sertifikat.import.form')" :active="request()->routeIs('sertifikat.import.form')">Import Sertifikat</x-nav-link>
+                    <x-nav-link :href="route('sertifikat.upload')" :active="request()->routeIs('sertifikat.upload')">Upload Sertifikat</x-nav-link>
                 </div>
 
                 <!-- Divider Visual -->
