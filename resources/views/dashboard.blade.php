@@ -1,13 +1,24 @@
 <x-app-layout>
+  <div 
+    x-data="{
+        open: JSON.parse(localStorage.getItem('sidebarOpen') || 'true'),
+    }"
+    x-init="
+        window.addEventListener('sidebar-toggled', () => {
+            open = JSON.parse(localStorage.getItem('sidebarOpen'));
+        });
+    "
+    :class="open ? 'ml-64' : 'ml-16'"
+    class="transition-all duration-300"
+>
   <body class="bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 font-sans">
     <main class="pt-28 px-4 sm:px-6 lg:px-8 pb-16 max-w-7xl mx-auto">
 
       <!-- Hero -->
       <section class="mb-10 text-center sm:text-left">
-       <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
-    Selamat Datang, <span class="text-blue-600">{{ Auth::user()->name }}</span>
-    <img src="{{ asset('images/Logo.png') }}" alt="Logo" class="w-6 h-6 rounded-full">
-</h2>
+        <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+          Selamat Datang, <span class="text-blue-600">{{ Auth::user()->name }}</span>
+        </h2>
 
         <p class="text-gray-500 mt-1">
           Kelola data sertifikat siswa dan pantau statistik sistem dengan mudah.
