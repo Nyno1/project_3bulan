@@ -1,3 +1,6 @@
+<!-- Tambahkan ini di dalam <head> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
 <footer class="bg-blue-900 text-white">
     <div class="max-w-screen-xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         <!-- Info Sekolah -->
@@ -21,9 +24,15 @@
         <div>
             <h2 class="text-xl font-semibold mb-2">Terhubung</h2>
             <div class="flex space-x-4 mt-2 text-2xl">
-                <a href="https://smkpesat.sch.id/" target="_blank">🌐</a>
-                <a href="#">🐦</a>
-                <a href="#">📘</a>
+                <a href="https://smkpesat.sch.id/" target="_blank" class="hover:text-yellow-400 transition">
+                    <i class="fas fa-globe"></i>
+                </a>
+                <a href="https://www.instagram.com/smkpesat_itxpro/" target="_blank" class="hover:text-yellow-400 transition">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/people/SMK-Informatika-Pesat-It-XPro/100092495414821/" target="_blank" class="hover:text-yellow-400 transition">
+                    <i class="fab fa-facebook"></i>
+                </a>
             </div>
             <p class="text-sm text-blue-300 mt-4">Dibuat oleh Tim RPL SMK Informatika Pesat</p>
         </div>
