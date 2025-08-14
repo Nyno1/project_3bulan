@@ -26,7 +26,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    
+
+    Route::get('/sertifikat/import', [\App\Http\Controllers\SertifikatController::class, 'importForm'])->name('sertifikat.import.form');
+    Route::post('/sertifikat/import', [\App\Http\Controllers\SertifikatController::class, 'importExcel'])->name('sertifikat.import.excel');
+    Route::get('/sertifikat/preview', [\App\Http\Controllers\SertifikatController::class, 'previewImport'])->name('sertifikat.preview');
+    Route::post('/sertifikat/confirm-import', [\App\Http\Controllers\SertifikatController::class, 'confirmImport'])->name('sertifikat.import.confirm');
+
     Route::get('/sertifikat/create', [SertifikatController::class, 'create'])->name('sertifikat.create');
     Route::post('/sertifikat/store', [SertifikatController::class, 'store'])->name('sertifikat.store');
 

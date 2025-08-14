@@ -18,7 +18,7 @@ return new class extends Migration
         $table->string('jenis_sertifikat');
         $table->string('judul_sertifikat');
         $table->date('tanggal_diraih');
-        $table->string('foto_sertifikat'); // Menyimpan nama file
+        $table->string('foto_sertifikat')->nullable(); // Menyimpan nama file
         $table->timestamps();
         });
     }

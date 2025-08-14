@@ -18,7 +18,7 @@
         <h2 class="text-2xl font-semibold text-blue-900">{{ $totalSiswa }}</h2>
         <p class="text-gray-500">Total Siswa</p>
     </div>
-  
+
 </section>
 
 
@@ -56,7 +56,12 @@
         <td class="px-6 py-4">{{ $sertif->judul_sertifikat }}</td>
         <td class="px-6 py-4">{{ $sertif->tanggal_diraih }}</td>
         <td class="px-6 py-4">
-            <img src="{{ asset('storage/'.$sertif->foto_sertifikat) }}" alt="Foto Sertifikat" class="h-12">
+            @if ($sertif->foto_sertifikat)
+                <img src="{{ asset('storage/'.$sertif->foto_sertifikat) }}" alt="Sertifikat" class="w-16 h-16 object-cover rounded">
+            @else
+                <span class="text-gray-500">Tidak ada foto</span>
+            @endif
+
         </td>
     </tr>
     @endforeach

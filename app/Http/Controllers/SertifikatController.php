@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sertifikat;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SertifikatController extends Controller
 {
@@ -86,8 +87,8 @@ class SertifikatController extends Controller
                 'success' => true,
                 'count' => $results->count(),
                 'data' => $results,
-                'message' => $results->count() > 0 
-                    ? 'Ditemukan ' . $results->count() . ' sertifikat' 
+                'message' => $results->count() > 0
+                    ? 'Ditemukan ' . $results->count() . ' sertifikat'
                     : 'Tidak ada sertifikat yang ditemukan'
             ]);
         }
@@ -195,6 +196,88 @@ class SertifikatController extends Controller
                 'message' => 'Terjadi kesalahan saat verifikasi sertifikat',
                 'error' => $e->getMessage()
             ], 500);
+        }
+    }
+    public function importForm()
+    {
+        return view('sertifikat.import');
+    }
+
+    public function importExcel(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls'
+        ]);
+
+        try {
+            $import = new \App\Imports\SertifikatImport;
+            Excel::import($import, $request->file('file'));
+            $importedData = $import->data; // Get the imported data from the public property
+
+            // Store data in session for preview
+            $request->session()->put('imported_sertifikats', $importedData);
+
+            return redirect()->route('sertifikat.preview')->with('success', 'File Excel berhasil diunggah. Silakan tinjau data sebelum diimpor.');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            $failures = $e->failures();
+            $errors = [];
+            foreach ($failures as $failure) {
+                $errors[] = 'Baris ' . $failure->row() . ': ' . implode(', ', $failure->errors());
+            }
+            return redirect()->back()->with('error', 'Gagal mengimpor data: ' . implode('; ', $errors));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage());
+        }
+    }
+
+    public function previewImport(Request $request)
+    {
+        // Data is already in session, just display the view
+        return view('sertifikat.preview');
+    }
+
+    public function confirmImport(Request $request)
+    {
+        $request->validate([
+            'sertifikats.*.nis'              => 'required|string',
+            'sertifikats.*.nama_siswa'       => 'required|string',
+            'sertifikats.*.jenis_sertifikat' => 'required|string',
+            'sertifikats.*.judul_sertifikat' => 'required|string',
+            'sertifikats.*.tanggal_diraih'   => 'required|date',
+            'foto_sertifikat.*'              => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
+        ]);
+
+        $sertifikatsToImport = $request->input('sertifikats');
+
+        if (empty($sertifikatsToImport)) {
+            return redirect()->route('sertifikat.import.form')->with('error', 'Tidak ada data untuk diimpor. Silakan unggah file Excel terlebih dahulu.');
+        }
+
+        try {
+            foreach ($sertifikatsToImport as $index => $data) {
+                // Handle foto_sertifikat upload if provided
+                $fotoPath = null;
+                if ($request->hasFile('foto_sertifikat.' . $index)) {
+                    $fotoPath = $request->file('foto_sertifikat.' . $index)->store('sertifikat', 'public');
+                }
+
+                Sertifikat::create([
+                    'nis'               => $data['nis'],
+                    'nama_siswa'        => $data['nama_siswa'],
+                    'jenis_sertifikat'  => $data['jenis_sertifikat'],
+                    'judul_sertifikat'  => $data['judul_sertifikat'],
+                    'tanggal_diraih'    => $data['tanggal_diraih'],
+                    'foto_sertifikat'   => $fotoPath,
+                ]);
+            }
+
+            // Clear session data after successful import, as data is now processed from request
+            $request->session()->forget('imported_sertifikats');
+
+            return redirect()->route('dashboard')->with('success', 'Semua data sertifikat berhasil diimpor!');
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat mengkonfirmasi impor data: ' . $e->getMessage());
         }
     }
 }
