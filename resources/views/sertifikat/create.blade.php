@@ -139,31 +139,6 @@
                             class="w-full border-2 border-blue-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 transition-all duration-200 cursor-pointer bg-white text-gray-700 font-medium hover:border-blue-300">
                     </div>
 
-                    <!-- Foto Sertifikat -->
-                    <div class="relative">
-                        <label class="text-sm font-semibold text-blue-900 mb-2 flex items-center">
-                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                            </svg>
-                            Foto Sertifikat
-                        </label>
-                        <div class="border-2 border-dashed border-blue-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors duration-200">
-                            <input type="file" name="foto_sertifikat" accept="image/*" required onchange="previewImage(event)" 
-                                class="w-full file:mr-4 file:py-2 file:px-6 file:rounded-full file:border-0 file:bg-blue-900 file:text-white hover:file:bg-blue-800 file:cursor-pointer file:transition-all file:duration-200 cursor-pointer">
-                            <p class="text-sm text-gray-500 mt-2">Format yang didukung: JPG, PNG, GIF (Maks. 5MB)</p>
-                        </div>
-                        <div id="preview-container" class="mt-4 hidden">
-                            <div class="relative inline-block">
-                                <img id="preview" class="w-48 rounded-lg shadow-lg border-2 border-blue-200">
-                                <div class="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Submit Button -->
                     <div class="pt-6 border-t border-blue-100">
                         <button type="submit"
@@ -178,16 +153,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function previewImage(event) {
-            const preview = document.getElementById('preview');
-            const previewContainer = document.getElementById('preview-container');
-            const file = event.target.files[0];
-            if (file) {
-                preview.src = URL.createObjectURL(file);
-                previewContainer.classList.remove('hidden');
-            }
-        }
-    </script>
 </x-app-layout>
