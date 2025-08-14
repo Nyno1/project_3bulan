@@ -153,16 +153,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function previewImage(event) {
-            const preview = document.getElementById('preview');
-            const previewContainer = document.getElementById('preview-container');
-            const file = event.target.files[0];
-            if (file) {
-                preview.src = URL.createObjectURL(file);
-                previewContainer.classList.remove('hidden');
-            }
-        }
-    </script>
 </x-app-layout>

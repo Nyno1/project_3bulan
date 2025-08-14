@@ -7,7 +7,7 @@ use App\Models\Sertifikat;
 use App\Models\User;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Storage; // Tambahkan ini untuk menghapus file jika ada error
+use Illuminate\Support\Facades\Storage;
 
 class SertifikatController extends Controller
 {
@@ -36,24 +36,19 @@ class SertifikatController extends Controller
     public function create()
     {
         // Tampilkan form tambah sertifikat
-        // Ini akan mengarahkan ke tampilan form yang lebih sederhana
         return view('sertifikat.create');
     }
 
-    // Metode asli untuk menambahkan sertifikat lengkap
+    // Metode untuk menambahkan sertifikat lengkap TANPA FOTO
     public function store(Request $request)
     {
         $request->validate([
-            'nis' => 'required',
-            'nama_siswa' => 'required',
-            'jenis_sertifikat' => 'required',
-            'judul_sertifikat' => 'required',
+            'nis' => 'required|string', // Pastikan NIS adalah string
+            'nama_siswa' => 'required|string',
+            'jenis_sertifikat' => 'required|string',
+            'judul_sertifikat' => 'required|string',
             'tanggal_diraih' => 'required|date',
-            'foto_sertifikat' => 'required|image|mimes:jpg,jpeg,png|max:5120'
         ]);
-
-        // Upload foto
-        $fotoPath = $request->file('foto_sertifikat')->store('sertifikat', 'public');
 
         Sertifikat::create([
             'nis' => $request->nis,
@@ -61,14 +56,14 @@ class SertifikatController extends Controller
             'jenis_sertifikat' => $request->jenis_sertifikat,
             'judul_sertifikat' => $request->judul_sertifikat,
             'tanggal_diraih' => $request->tanggal_diraih,
-            'foto_sertifikat' => $fotoPath
+            'foto_sertifikat' => null 
         ]);
 
         return redirect()->route('dashboard')->with('success', 'Sertifikat berhasil ditambahkan!');
     }
 
     /**
-     * Metode baru untuk mengunggah foto sertifikat dan menautkannya ke NIS yang sudah ada.
+     * Metode untuk mengunggah foto sertifikat dan menautkannya ke NIS yang sudah ada.
      * NIS akan divalidasi apakah sudah ada di tabel 'sertifikats'.
      * Data lain (nama_siswa, jenis_sertifikat, dll.) akan diambil dari record sertifikat yang sudah ada
      * untuk NIS tersebut agar sesuai dengan skema database yang ada.
