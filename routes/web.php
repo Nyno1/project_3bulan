@@ -35,6 +35,8 @@ Route::get('/dashboard', [SertifikatController::class, 'index'])
 Route::get('/sertifikat/import/template', [SertifikatController::class, 'downloadTemplate'])
     ->name('sertifikat.import.template');
 
+    Route::post('/sertifikat/upload-massal', [SertifikatController::class, 'uploadMassal'])->name('sertifikat.upload.massal');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

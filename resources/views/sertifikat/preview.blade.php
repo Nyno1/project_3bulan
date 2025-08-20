@@ -49,11 +49,13 @@
                                     <table class="min-w-full divide-y divide-gray-200">
                                         <thead class="bg-green-600">
                                             <tr>
-                                                @foreach (['NIS', 'Nama Siswa'] as $header)
-                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">
-                                                        {{ $header }}
-                                                    </th>
-                                                @endforeach
+                                                {{-- Hanya menampilkan NIS dan Nama Siswa --}}
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                                                    NIS
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">
+                                                    Nama Siswa
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody class="bg-white divide-y divide-gray-200">

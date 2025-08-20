@@ -72,17 +72,23 @@
               <tr class="border-b hover:bg-gray-50 transition">
                 <td class="px-6 py-4">{{ $sertif->nama_siswa }}</td>
                 <td class="px-6 py-4">{{ $sertif->nis }}</td>
-                <td class="px-6 py-4">{{ $sertif->jenis_sertifikat }}</td>
-                <td class="px-6 py-4">{{ $sertif->judul_sertifikat }}</td>
-                <td class="px-6 py-4">{{ $sertif->tanggal_diraih }}</td>
                 <td class="px-6 py-4">
-                  @if ($sertif->foto_sertifikat)
-                    <img src="{{ asset('storage/'.$sertif->foto_sertifikat) }}" alt="Sertifikat"
-                         class="w-16 h-16 object-cover rounded-lg shadow-md hover:scale-110 transition">
-                  @else
-                    <span class="text-gray-400 italic">Tidak ada foto</span>
-                  @endif
-                </td>
+    {{ $sertif->jenis_sertifikat ?? 'Data Kosong' }}
+</td>
+<td class="px-6 py-4">
+    {{ $sertif->judul_sertifikat ?? 'Data Kosong' }}
+</td>
+<td class="px-6 py-4">
+    {{ $sertif->tanggal_diraih ?? 'Data Kosong' }}
+</td>
+<td class="px-6 py-4">
+    @if ($sertif->foto_sertifikat)
+        <img src="{{ asset('storage/'.$sertif->foto_sertifikat) }}" class="w-16 h-16 object-cover rounded-lg shadow-md">
+    @else
+        <span class="text-gray-400 italic">Data Kosong</span>
+    @endif
+</td>
+
               </tr>
               @endforeach
             </tbody>
