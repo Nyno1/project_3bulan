@@ -12,7 +12,7 @@
                 <a href="/" class="group text-gray-600 relative">Home
                     <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-orange-300 transition-all group-hover:w-full"></span>
                 </a>
-                <a href="{{ route('pencarian.sertifikat') }}" class="group text-gray-600 relative">Sertifikat
+                <a href="{{ route('pencarian.sertifikat') }}" class="group text-gray-600 relative">Cari Sertifikat
                     <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-orange-300 transition-all group-hover:w-full"></span>
                 </a>
                 <a href="{{ route('login') }}" class="relative inline-flex items-center justify-center px-6 py-2 overflow-hidden font-semibold text-white rounded-full shadow-md transition-all duration-300 transform hover:scale-105 group">

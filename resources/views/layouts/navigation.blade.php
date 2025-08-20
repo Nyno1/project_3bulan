@@ -112,7 +112,7 @@
                     class="p-4 border-t border-gray-300 flex justify-center">
                     @csrf
                     <button type="submit"
-                        :class="open ? 'w-full justify-start px-4' : 'w-10 h-10 justify-center'"
+                        :class="open ? 'w-full justify-start px-4 py-2' : 'w-10 h-10 justify-center'"
                         class="flex items-center rounded-lg text-red-500 hover:bg-red-100 transition">
                         <ion-icon name="log-out-outline" class="w-5 h-5"></ion-icon>
                         <span x-show="open" class="ml-2 text-sm font-medium">Log Out</span>

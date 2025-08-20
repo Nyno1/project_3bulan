@@ -31,7 +31,7 @@
 @include('profile.partials.navbar-user')
 
 <!-- Hero Section -->
-<main class="pt-20 pb-20 bg-white">
+<main class="pt-18 pb-20 bg-white">
     <section id="beranda" class="relative w-full bg-gradient-to-r from-blue-50 via-white to-orange-50 pb-24 overflow-hidden" style="padding-top: calc(var(--navbar-height) + 2rem)">>
         <div class="absolute -top-28 -left-28 w-96 h-96 bg-blue-200 rounded-full opacity-30 blur-3xl animate-float"></div>
         <div class="absolute -bottom-28 -right-28 w-96 h-96 bg-orange-200 rounded-full opacity-30 blur-3xl animate-float" style="animation-delay: 1s;"></div>
@@ -57,7 +57,7 @@
             </div>
 
             <div class="flex justify-center md:justify-end" data-aos="fade-left" data-aos-delay="100">
-                <img src="{{ asset('images/Desian-Web.jpg') }}" alt="Ilustrasi" class="w-80 md:w-96 rounded-xl shadow-xl transform hover:scale-105 transition animate-float">
+                <img src="{{ asset('images/Desian-Web.jpg') }}" alt="Ilustrasi" class="w-80 md:w-96 rounded-xl drop-shadow-xl transform hover:scale-105 transition animate-float bg-transparent">
                 </div>
             </div>
         </div>
@@ -69,9 +69,9 @@
     </section>
 
     <!-- Galeri -->
-    <section class="max-w-7xl mx-auto px-4 py-20" aria-label="Galeri">
+    <section class="max-w-7xl mx-auto px-4 py-20 mt-15" aria-label="Galeri">
         <div class="text-center mb-10" data-aos="fade-up">
-        <h2 class="text-3xl font-bold text-blue-700">Galeri Kegiatan Sertifikasi</h2>
+        <h2 class="text-3xl font-bold text-blue-700">Galeri Kejuaraan SMK INFORMATIKA PESAT</h2>
         <p class="text-gray-600 mt-2">Dokumentasi kegiatan dan sertifikat siswa</p>
         </div>
 
