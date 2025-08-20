@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('sertifikats', function (Blueprint $table) {
         $table->id();
-        $table->string('nis');
+        $table->string('nis')->unique();
         $table->string('nama_siswa');
         $table->string('jenis_sertifikat');
         $table->string('judul_sertifikat');

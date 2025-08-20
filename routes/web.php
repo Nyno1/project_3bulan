@@ -32,6 +32,9 @@ Route::get('/dashboard', [SertifikatController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 
+Route::get('/sertifikat/import/template', [SertifikatController::class, 'downloadTemplate'])
+    ->name('sertifikat.import.template');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
