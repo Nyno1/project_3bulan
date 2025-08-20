@@ -86,7 +86,7 @@
                             <li>
                                 <a href="{{ route('sertifikat.upload') }}" 
                                    class="flex items-center p-2 pl-11 text-base font-medium rounded-lg hover:bg-gray-100 transition">
-                                    Upload Sertifikat
+                                    Tambah Sertifikat
                                 </a>
                             </li>
                         </ul>

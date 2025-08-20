@@ -49,7 +49,7 @@
                                     <table class="min-w-full divide-y divide-gray-200">
                                         <thead class="bg-green-600">
                                             <tr>
-                                                @foreach (['NIS', 'Nama Siswa', 'Jenis Sertifikat', 'Judul Sertifikat', 'Tanggal Diraih', 'Foto Sertifikat (Opsional)'] as $header)
+                                                @foreach (['NIS', 'Nama Siswa'] as $header)
                                                     <th scope="col" class="px-6 py-3 text-left text-xs font-semibold text-white uppercase tracking-wider">
                                                         {{ $header }}
                                                     </th>
@@ -74,37 +74,6 @@
                                                             value="{{ old('sertifikats.' . $index . '.nama_siswa', $sertifikat['nama_siswa']) }}" 
                                                             class="w-full"
                                                         />
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                        <x-text-input 
-                                                            type="text" 
-                                                            name="sertifikats[{{ $index }}][jenis_sertifikat]" 
-                                                            value="{{ old('sertifikats.' . $index . '.jenis_sertifikat', $sertifikat['jenis_sertifikat']) }}" 
-                                                            class="w-full"
-                                                        />
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                        <x-text-input 
-                                                            type="text" 
-                                                            name="sertifikats[{{ $index }}][judul_sertifikat]" 
-                                                            value="{{ old('sertifikats.' . $index . '.judul_sertifikat', $sertifikat['judul_sertifikat']) }}" 
-                                                            class="w-full"
-                                                        />
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                        <x-text-input 
-                                                            type="date" 
-                                                            name="sertifikats[{{ $index }}][tanggal_diraih]" 
-                                                            value="{{ old('sertifikats.' . $index . '.tanggal_diraih', $sertifikat['tanggal_diraih']) }}" 
-                                                            class="w-full"
-                                                        />
-                                                    </td>
-                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                                        <input 
-                                                            type="file" 
-                                                            name="foto_sertifikat[{{ $index }}]" 
-                                                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 p-2"
-                                                        >
                                                     </td>
                                                 </tr>
                                             @endforeach
