@@ -16,14 +16,16 @@
 
       <!-- Hero -->
       <section class="mb-10 text-center sm:text-left">
-        <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
-          Selamat Datang, <span class="text-blue-600">{{ Auth::user()->name }}</span>
-        </h2>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:gap-2">
+          <h2 class="text-2xl font-bold text-gray-800">Selamat Datang,</h2>
+          <span class="text-2xl font-bold text-blue-600">{{ Auth::user()->name }}</span>
+        </div>
 
         <p class="text-gray-500 mt-1">
           Kelola data sertifikat siswa dan pantau statistik sistem dengan mudah.
         </p>
       </section>
+
 
       <!-- Statistik -->
       <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
@@ -89,6 +91,5 @@
       </section>
 
     </main>
-    @include('profile.partials.footer')
   </body>
 </x-app-layout>

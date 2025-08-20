@@ -6,7 +6,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="theme-color" content="#ffffff">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Dashboard Admin') }}</title>
 
         <!-- Alpine.js -->
         <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
