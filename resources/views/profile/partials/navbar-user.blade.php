@@ -1,7 +1,7 @@
 <nav 
     x-data="{ scrolled: false, open: false }" 
     x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 50 })"
-    :class="scrolled ? 'bg-white/95 glass-effect border-b border-white/20 shadow-lg shadow-black/5' : 'bg-transparent'"
+    :class="scrolled ? 'bg-white/80 glass-effect border-b border-white/20 shadow-lg shadow-black/5' : 'bg-transparent'"
     class="fixed top-0 left-0 w-full z-50 transition-all duration-500 ease-out"
 >
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

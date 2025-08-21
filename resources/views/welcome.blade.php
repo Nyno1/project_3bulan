@@ -8,7 +8,7 @@
     
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 </head>
-<body class="bg-gradient-to-br from-gray-50 via-blue-50 to-orange-50 text-gray-800 font-sans antialiased transition-colors duration-300">
+<body class="bg-white text-gray-800 font-sans antialiased transition-colors duration-300">
 
 @include('profile.partials.navbar-user')
 
@@ -73,7 +73,7 @@
             <defs>
                 <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
                     <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
-                    <stop offset="50%" style="stop-color:#f8fafc;stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:#ffffff;stop-opacity:1" />
                     <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
                 </linearGradient>
             </defs>
@@ -83,7 +83,7 @@
     </section>
 
     <!-- Gallery Section -->
-    <section class="relative max-w-7xl mx-auto px-4 py-24 bg-white" id="galeri" aria-label="Galeri">
+    <section class="relative px-4 py-24" id="galeri" aria-label="Galeri">
         <!-- Background decoration -->
         <div class="absolute top-0 left-0 w-full h-full opacity-5">
             <div class="absolute top-20 left-10 w-20 h-20 bg-blue-500 rounded-full"></div>
@@ -93,7 +93,7 @@
 
         <div class="relative z-10 text-center mb-16" data-aos="fade-up">
             <div class="inline-block relative">
-                <h2 class="text-4xl md:text-5xl font-black bg-gradient-to-r from-gray-800 via-blue-600 to-orange-500 bg-clip-text text-transparent">
+                <h2 class="text-4xl md:text-5xl mb-2 font-black bg-gradient-to-r from-gray-800 via-blue-600 to-orange-500 bg-clip-text text-transparent">
                     Ikuti Kegiatan Terbaru
                 </h2>
                 <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-500 to-orange-500 rounded-full"></div>
