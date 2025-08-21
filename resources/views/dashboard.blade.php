@@ -14,6 +14,13 @@
   <body class="bg-gradient-to-br from-gray-50 to-gray-100 text-gray-800 font-sans">
     <main class="pt-28 px-4 sm:px-6 lg:px-8 pb-16 max-w-7xl mx-auto">
 
+      <!-- Alert Error -->
+      @if(session('error'))
+        <div class="mb-6 p-4 rounded-xl bg-red-100 border border-red-300 text-red-700 shadow-md">
+          <strong>⚠️ {{ session('error') }}</strong>
+        </div>
+      @endif
+
       <!-- Hero -->
       <section class="mb-10 text-center sm:text-left">
         <div class="flex flex-col sm:flex-row sm:items-center sm:gap-2">
@@ -72,23 +79,16 @@
               <tr class="border-b hover:bg-gray-50 transition">
                 <td class="px-6 py-4">{{ $sertif->nama_siswa }}</td>
                 <td class="px-6 py-4">{{ $sertif->nis }}</td>
+                <td class="px-6 py-4">{{ $sertif->jenis_sertifikat ?? 'Data Kosong' }}</td>
+                <td class="px-6 py-4">{{ $sertif->judul_sertifikat ?? 'Data Kosong' }}</td>
+                <td class="px-6 py-4">{{ $sertif->tanggal_diraih ?? 'Data Kosong' }}</td>
                 <td class="px-6 py-4">
-    {{ $sertif->jenis_sertifikat ?? 'Data Kosong' }}
-</td>
-<td class="px-6 py-4">
-    {{ $sertif->judul_sertifikat ?? 'Data Kosong' }}
-</td>
-<td class="px-6 py-4">
-    {{ $sertif->tanggal_diraih ?? 'Data Kosong' }}
-</td>
-<td class="px-6 py-4">
-    @if ($sertif->foto_sertifikat)
-        <img src="{{ asset('storage/'.$sertif->foto_sertifikat) }}" class="w-16 h-16 object-cover rounded-lg shadow-md">
-    @else
-        <span class="text-gray-400 italic">Data Kosong</span>
-    @endif
-</td>
-
+                  @if ($sertif->foto_sertifikat)
+                      <img src="{{ asset('storage/'.$sertif->foto_sertifikat) }}" class="w-16 h-16 object-cover rounded-lg shadow-md">
+                  @else
+                      <span class="text-gray-400 italic">Data Kosong</span>
+                  @endif
+                </td>
               </tr>
               @endforeach
             </tbody>

@@ -86,78 +86,68 @@ class SertifikatController extends Controller
     // 🔹 FITUR UPLOAD MASSAL FOTO BERDASARKAN NIS
     // Ganti method uploadMassal yang lama dengan yang ini:
 
-public function uploadMassal(Request $request)
-{
-    // Validasi input
-    $request->validate([
-        'foto_sertifikat.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        'jenis_sertifikat' => 'required|string',
-        'judul_sertifikat' => 'required|string',
-        'tanggal_diraih' => 'required|date',
-    ]);
+    public function uploadMassal(Request $request)
+    {
+        $request->validate([
+            'foto_sertifikat.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'jenis_sertifikat'  => 'required|string',
+            'judul_sertifikat'  => 'required|string',
+            'tanggal_diraih'    => 'required|date',
+        ]);
 
-    $uploadedCount = 0;
-    $errors = [];
+        $uploadedCount = 0;
+        $errors = [];
 
-    foreach ($request->file('foto_sertifikat') as $file) {
-        try {
-            // Ambil NIS dari nama file (tanpa ekstensi)
-            $nis = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-            
-            // Simpan file
-            $path = $file->store('sertifikats', 'public');
+        foreach ($request->file('foto_sertifikat') as $file) {
+            try {
+                $nis = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
 
-            // Cari apakah sudah ada data dengan NIS tersebut
-            $sertifikat = Sertifikat::where('nis', $nis)->first();
+                // cari data berdasarkan NIS
+                $sertifikat = Sertifikat::where('nis', $nis)->first();
 
-            if ($sertifikat) {
-                // Update data yang sudah ada
-                // Hapus foto lama jika ada
+                if (!$sertifikat) {
+                    // kalau nis tidak ada → skip
+                    $errors[] = "NIS {$nis} tidak ditemukan di database.";
+                    continue;
+                }
+
+                // simpan file
+                $path = $file->store('sertifikats', 'public');
+
+                // hapus foto lama kalau ada
                 if ($sertifikat->foto_sertifikat && Storage::disk('public')->exists($sertifikat->foto_sertifikat)) {
                     Storage::disk('public')->delete($sertifikat->foto_sertifikat);
                 }
 
+                // update data sertifikat
                 $sertifikat->update([
-                    'foto_sertifikat' => $path,
+                    'foto_sertifikat'  => $path,
                     'jenis_sertifikat' => $request->jenis_sertifikat,
                     'judul_sertifikat' => $request->judul_sertifikat,
-                    'tanggal_diraih' => $request->tanggal_diraih,
+                    'tanggal_diraih'   => $request->tanggal_diraih,
                 ]);
-            } else {
-                // Buat data baru
-                Sertifikat::create([
-                    'nis' => $nis,
-                    'nama_siswa' => 'Belum diisi', // Akan diupdate manual atau via import
-                    'jenis_sertifikat' => $request->jenis_sertifikat,
-                    'judul_sertifikat' => $request->judul_sertifikat,
-                    'tanggal_diraih' => $request->tanggal_diraih,
-                    'foto_sertifikat' => $path,
-                ]);
-            }
 
-            $uploadedCount++;
-        } catch (\Exception $e) {
-            $errors[] = "Error pada file {$file->getClientOriginalName()}: " . $e->getMessage();
-            
-            // Hapus file yang sudah diupload jika terjadi error
-            if (isset($path) && Storage::disk('public')->exists($path)) {
-                Storage::disk('public')->delete($path);
+                $uploadedCount++;
+            } catch (\Exception $e) {
+                $errors[] = "Error pada file {$file->getClientOriginalName()}: " . $e->getMessage();
+                if (isset($path) && Storage::disk('public')->exists($path)) {
+                    Storage::disk('public')->delete($path);
+                }
             }
+        }
+
+        if ($uploadedCount > 0) {
+            $message = "Upload massal berhasil! {$uploadedCount} sertifikat berhasil diproses.";
+            if (!empty($errors)) {
+                $message .= " Namun ada " . count($errors) . " file yang gagal diproses.";
+            }
+            return redirect()->route('dashboard')->with('success', $message);
+        } else {
+            $errorMessage = "Upload massal gagal! " . implode(' ', $errors);
+            return redirect()->back()->with('error', $errorMessage);
         }
     }
 
-    // Berikan feedback ke user
-    if ($uploadedCount > 0) {
-        $message = "Upload massal berhasil! {$uploadedCount} sertifikat berhasil diproses.";
-        if (!empty($errors)) {
-            $message .= " Namun ada " . count($errors) . " file yang gagal diproses.";
-        }
-        return redirect()->route('dashboard')->with('success', $message);
-    } else {
-        $errorMessage = "Upload massal gagal! " . implode(' ', $errors);
-        return redirect()->back()->with('error', $errorMessage);
-    }
-}
 
     // ===== Tambahan dari controller lama (Edit, Update, Destroy) =====
     public function edit($id)

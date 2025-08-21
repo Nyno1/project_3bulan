@@ -15,16 +15,18 @@ return new class extends Migration
         $table->id();
         $table->string('nis')->unique();
         $table->string('nama_siswa');
-     $table->string('jenis_sertifikat')->nullable();
-$table->string('judul_sertifikat')->nullable();
-$table->date('tanggal_diraih')->nullable();
-$table->string('foto_sertifikat')->nullable();
+        $table->string('jenis_sertifikat')->nullable();
+        $table->string('judul_sertifikat')->nullable();
+        $table->date('tanggal_diraih')->nullable();
+        $table->string('foto_sertifikat')->nullable();
 
         $table->timestamps();
         });
     }
 
     /**
+     * 
+     * 
      * Reverse the migrations.
      */
     public function down(): void
