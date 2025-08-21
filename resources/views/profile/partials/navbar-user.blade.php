@@ -19,9 +19,6 @@
                 <a href="/" class="group relative">Home
                     <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-orange-300 transition-all group-hover:w-full"></span>
                 </a>
-                <a href="#galeri" class="group relative">Gallery
-                    <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-orange-300 transition-all group-hover:w-full"></span>
-                </a>
                 <a href="{{ route('pencarian.sertifikat') }}" class="group relative">Cari Sertifikat
                     <span class="absolute left-0 -bottom-1 w-0 h-0.5 bg-orange-300 transition-all group-hover:w-full"></span>
                 </a>
