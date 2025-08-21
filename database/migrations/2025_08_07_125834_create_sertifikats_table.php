@@ -12,16 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sertifikats', function (Blueprint $table) {
-        $table->id();
-        $table->string('nis')->unique();
-        $table->string('nama_siswa');
-        $table->string('jenis_sertifikat')->nullable();
-        $table->string('judul_sertifikat')->nullable();
-        $table->date('tanggal_diraih')->nullable();
-        $table->string('foto_sertifikat')->nullable();
+            $table->id();
+            $table->integer('nis')->unique();
+            $table->string('nama_siswa');
+            $table->string('jenis_sertifikat')->nullable();
+            $table->string('judul_sertifikat')->nullable();
+            $table->date('tanggal_diraih')->nullable();
+            $table->string('foto_sertifikat')->nullable();
+            $table->timestamps();
+});
 
-        $table->timestamps();
-        });
     }
 
     /**
