@@ -84,70 +84,36 @@ class SertifikatController extends Controller
     }
 
     // 🔹 FITUR UPLOAD MASSAL FOTO BERDASARKAN NIS
-    // Ganti method uploadMassal yang lama dengan yang ini:
-
     public function uploadMassal(Request $request)
     {
         $request->validate([
             'foto_sertifikat.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'jenis_sertifikat'  => 'required|string',
-            'judul_sertifikat'  => 'required|string',
-            'tanggal_diraih'    => 'required|date',
         ]);
 
-        $uploadedCount = 0;
-        $errors = [];
-
         foreach ($request->file('foto_sertifikat') as $file) {
-            try {
-                $nis = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+            $nis = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
 
-                // cari data berdasarkan NIS
-                $sertifikat = Sertifikat::where('nis', $nis)->first();
+            $sertifikat = Sertifikat::where('nis', $nis)->first();
 
-                if (!$sertifikat) {
-                    // kalau nis tidak ada → skip
-                    $errors[] = "NIS {$nis} tidak ditemukan di database.";
-                    continue;
-                }
-
-                // simpan file
+            if ($sertifikat) {
                 $path = $file->store('sertifikats', 'public');
-
-                // hapus foto lama kalau ada
-                if ($sertifikat->foto_sertifikat && Storage::disk('public')->exists($sertifikat->foto_sertifikat)) {
-                    Storage::disk('public')->delete($sertifikat->foto_sertifikat);
-                }
-
-                // update data sertifikat
                 $sertifikat->update([
-                    'foto_sertifikat'  => $path,
-                    'jenis_sertifikat' => $request->jenis_sertifikat,
-                    'judul_sertifikat' => $request->judul_sertifikat,
-                    'tanggal_diraih'   => $request->tanggal_diraih,
+                    'foto_sertifikat' => $path,
                 ]);
-
-                $uploadedCount++;
-            } catch (\Exception $e) {
-                $errors[] = "Error pada file {$file->getClientOriginalName()}: " . $e->getMessage();
-                if (isset($path) && Storage::disk('public')->exists($path)) {
-                    Storage::disk('public')->delete($path);
-                }
+            } else {
+                Sertifikat::create([
+                    'nis' => $nis,
+                    'nama_siswa' => 'Belum diisi',
+                    'jenis_sertifikat' => null,
+                    'judul_sertifikat' => null,
+                    'tanggal_diraih' => null,
+                    'foto_sertifikat' => $file->store('sertifikats', 'public'),
+                ]);
             }
         }
 
-        if ($uploadedCount > 0) {
-            $message = "Upload massal berhasil! {$uploadedCount} sertifikat berhasil diproses.";
-            if (!empty($errors)) {
-                $message .= " Namun ada " . count($errors) . " file yang gagal diproses.";
-            }
-            return redirect()->route('dashboard')->with('success', $message);
-        } else {
-            $errorMessage = "Upload massal gagal! " . implode(' ', $errors);
-            return redirect()->back()->with('error', $errorMessage);
-        }
+        return redirect()->route('dashboard')->with('success', 'Upload massal berhasil!');
     }
-
 
     // ===== Tambahan dari controller lama (Edit, Update, Destroy) =====
     public function edit($id)
@@ -245,10 +211,30 @@ class SertifikatController extends Controller
         ]);
     }
 
-    public function show($id)
+     public function show($id)
     {
-        $sertifikat = Sertifikat::findOrFail($id);
-        return view('sertifikat.detail', compact('sertifikat'));
+        try {
+            $sertifikat = Sertifikat::findOrFail($id);
+
+            if (request()->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'data' => $sertifikat
+                ]);
+            }
+
+            return view('sertifikat.detail', compact('sertifikat'));
+
+        } catch (\Exception $e) {
+            if (request()->expectsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Sertifikat tidak ditemukan'
+                ], 404);
+            }
+
+            return redirect()->back()->with('error', 'Sertifikat tidak ditemukan');
+        }
     }
 
     public function verify(Request $request)
