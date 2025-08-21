@@ -21,6 +21,14 @@
         </div>
       @endif
 
+      <!-- Alert Success -->
+      @if(session('success'))
+          <div class="mb-6 p-4 rounded-xl bg-green-100 border border-green-300 text-green-700 shadow-md">
+              <strong>✅ {{ session('success') }}</strong>
+          </div>
+      @endif
+
+
       <!-- Hero -->
       <section class="mb-10 text-center sm:text-left">
         <div class="flex flex-col sm:flex-row sm:items-center sm:gap-2">
@@ -59,7 +67,7 @@
         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
           <h2 class="text-xl font-bold text-blue-800">Sertifikat Terbaru</h2>
           <a href="{{ url('/sertifikat/create') }}"
-             class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl shadow-md hover:shadow-lg transition">
+              class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl shadow-md hover:shadow-lg transition">
             + Tambah Sertifikat
           </a>
         </div>
@@ -69,7 +77,7 @@
           <table class="min-w-full text-sm text-left border-collapse">
             <thead class="bg-blue-50 border-b">
               <tr>
-                @foreach(['Nama Siswa', 'NIS', 'Jenis Sertifikat', 'Judul Sertifikat', 'Tanggal', 'Sertifikat'] as $header)
+                @foreach(['Nama Siswa', 'NIS', 'Jenis Sertifikat', 'Judul Sertifikat', 'Tanggal', 'Sertifikat', 'Aksi'] as $header)
                   <th class="px-6 py-3 font-semibold text-blue-800 tracking-wide">{{ $header }}</th>
                 @endforeach
               </tr>
@@ -81,13 +89,28 @@
                 <td class="px-6 py-4">{{ $sertif->nis }}</td>
                 <td class="px-6 py-4">{{ $sertif->jenis_sertifikat ?? 'Data Kosong' }}</td>
                 <td class="px-6 py-4">{{ $sertif->judul_sertifikat ?? 'Data Kosong' }}</td>
-                <td class="px-6 py-4">{{ $sertif->tanggal_diraih ?? 'Data Kosong' }}</td>
+                <td class="px-6 py-4">{{ $sertif->tanggal_diraih ? $sertif->tanggal_diraih->format('d/m/Y') : 'Data Kosong' }}</td>
                 <td class="px-6 py-4">
-                  @if ($sertif->foto_sertifikat)
-                      <img src="{{ asset('storage/'.$sertif->foto_sertifikat) }}" class="w-16 h-16 object-cover rounded-lg shadow-md">
+                  @if (!empty($sertif->foto_sertifikat) && is_array($sertif->foto_sertifikat))
+                      <img src="{{ asset('storage/'. $sertif->foto_sertifikat[0]) }}" class="w-16 h-16 object-cover rounded-lg shadow-md" alt="Sertifikat">
+                      @if (count($sertif->foto_sertifikat) > 1)
+                          <span class="text-gray-500 text-xs mt-1"> (+{{ count($sertif->foto_sertifikat) - 1 }} lainnya)</span>
+                      @endif
                   @else
                       <span class="text-gray-400 italic">Data Kosong</span>
                   @endif
+                </td>
+                <td class="px-6 py-4 flex gap-2 items-center">
+                    <a href="{{ route('sertifikat.edit', $sertif->id) }}" class="text-white bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded-full text-xs font-medium transition duration-200">
+                        Edit
+                    </a>
+                    <form action="{{ route('sertifikat.destroy', $sertif->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data ini? Semua foto terkait juga akan dihapus.');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-white bg-red-500 hover:bg-red-600 px-3 py-1 rounded-full text-xs font-medium transition duration-200">
+                            Hapus
+                        </button>
+                    </form>
                 </td>
               </tr>
               @endforeach

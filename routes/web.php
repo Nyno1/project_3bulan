@@ -35,21 +35,26 @@ Route::get('/dashboard', [SertifikatController::class, 'index'])
 Route::get('/sertifikat/import/template', [SertifikatController::class, 'downloadTemplate'])
     ->name('sertifikat.import.template');
 
-    Route::post('/sertifikat/upload-massal', [SertifikatController::class, 'uploadMassal'])->name('sertifikat.upload.massal');
+Route::post('/sertifikat/upload-massal', [SertifikatController::class, 'uploadMassal'])->name('sertifikat.upload.massal');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/sertifikat/import', [\App\Http\Controllers\SertifikatController::class, 'importForm'])->name('sertifikat.import.form');
-    Route::post('/sertifikat/import', [\App\Http\Controllers\SertifikatController::class, 'importExcel'])->name('sertifikat.import.excel');
-    Route::get('/sertifikat/preview', [\App\Http\Controllers\SertifikatController::class, 'previewImport'])->name('sertifikat.preview');
-    Route::post('/sertifikat/confirm-import', [\App\Http\Controllers\SertifikatController::class, 'confirmImport'])->name('sertifikat.import.confirm');
+    Route::get('/sertifikat/import', [SertifikatController::class, 'importForm'])->name('sertifikat.import.form');
+    Route::post('/sertifikat/import', [SertifikatController::class, 'importExcel'])->name('sertifikat.import.excel');
+    Route::get('/sertifikat/preview', [SertifikatController::class, 'previewImport'])->name('sertifikat.preview');
+    Route::post('/sertifikat/confirm-import', [SertifikatController::class, 'confirmImport'])->name('sertifikat.import.confirm');
 
     Route::get('/sertifikat/create', [SertifikatController::class, 'create'])->name('sertifikat.create');
     Route::post('/sertifikat/store', [SertifikatController::class, 'store'])->name('sertifikat.store');
 
+    // 👇 Rute yang ditambahkan:
+    Route::get('/sertifikat/{sertifikat}/edit', [SertifikatController::class, 'edit'])->name('sertifikat.edit');
+    Route::put('/sertifikat/{sertifikat}', [SertifikatController::class, 'update'])->name('sertifikat.update');
+    Route::delete('/sertifikat/{sertifikat}', [SertifikatController::class, 'destroy'])->name('sertifikat.destroy');
+    // 👆 Rute baru berakhir di sini
 });
 
 // Route baru untuk pencarian
@@ -61,4 +66,7 @@ Route::post('/api/sertifikat/search', [SertifikatController::class, 'searchApi']
 Route::get('/sertifikat/{id}', [SertifikatController::class, 'show'])->name('sertifikat.show');
 Route::post('/api/sertifikat/verify', [SertifikatController::class, 'verify'])->name('sertifikat.verify');
 
-require __DIR__.'/auth.php';
+Route::get('/sertifikat', [SertifikatController::class, 'index'])->name('sertifikat.index');
+
+
+require __DIR__.'/auth.php';    
