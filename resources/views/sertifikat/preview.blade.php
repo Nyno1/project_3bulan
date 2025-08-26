@@ -72,8 +72,8 @@
                                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                                         <x-text-input 
                                                             type="text" 
-                                                            name="sertifikats[{{ $index }}][nama_siswa]" 
-                                                            value="{{ old('sertifikats.' . $index . '.nama_siswa', $sertifikat['nama_siswa']) }}" 
+                                                            name="sertifikats[{{ $index }}][nama]" 
+                                                            value="{{ old('sertifikats.' . $index . '.nama', $sertifikat['nama']) }}" 
                                                             class="w-full"
                                                         />
                                                     </td>

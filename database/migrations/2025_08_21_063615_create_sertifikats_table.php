@@ -11,22 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-       Schema::create('sertifikats', function (Blueprint $table) {
+      Schema::create('sertifikats', function (Blueprint $table) {
     $table->id();
-    $table->string('nis'); // HAPUS ->unique()
-    $table->string('nama_siswa');
-    $table->string('jenis_sertifikat')->nullable();
-    $table->string('judul_sertifikat')->nullable();
-    $table->date('tanggal_diraih')->nullable();
+    $table->string('nis');  // Foreign key ke tabel siswas
+    $table->string('jenis_sertifikat');
+    $table->string('judul_sertifikat');
+    $table->date('tanggal_diraih');
     $table->string('foto_sertifikat')->nullable();
     $table->timestamps();
+    
+    // Tambahkan foreign key constraint
+    $table->foreign('nis')
+          ->references('nis')
+          ->on('siswas')
+          ->onDelete('cascade');
 });
-
     }
 
     /**
-     * 
-     * 
      * Reverse the migrations.
      */
     public function down(): void

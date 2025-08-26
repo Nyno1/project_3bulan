@@ -2,33 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 use App\Models\Sertifikat;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 
 class SertifikatController extends Controller
 {
     public function index()
-    {
-        $sertifikats = Sertifikat::latest()->take(5)->get();
-        $totalSertifikasi = Sertifikat::count();
-        $totalSiswa = Sertifikat::distinct('nis')->count('nis');
-        $totalAdminAktif = User::where('role', 'admin')->count();
-        $totalSertifikatBulanIni = Sertifikat::whereMonth('tanggal_diraih', Carbon::now()->month)
-            ->whereYear('tanggal_diraih', Carbon::now()->year)
-            ->count();
+{
+    $siswas = Siswa::orderBy('nama')->paginate(10);
 
-        return view('dashboard', compact(
-            'sertifikats',
-            'totalSertifikasi',
-            'totalSiswa',
-            'totalSertifikatBulanIni',
-            'totalAdminAktif'
-        ));
-    }
+    // Kalau mau tabel “Sertifikat Terbaru” juga, ambil terpisah (opsional)
+    $sertifikats = Sertifikat::with('siswa')
+        ->orderByDesc('tanggal_diraih')
+        ->orderByDesc('id')
+        ->take(5)
+        ->get();
+
+    $totalSertifikasi = Sertifikat::count();
+    $totalSiswa = Siswa::count();
+    $totalAdminAktif = User::where('role', 'admin')->count();
+    $totalSertifikatBulanIni = Sertifikat::whereMonth('tanggal_diraih', now()->month)
+        ->whereYear('tanggal_diraih', now()->year)
+        ->count();
+
+    return view('dashboard', compact(
+        'siswas',
+        'sertifikats', // opsional kalau tabel sertifikat terbaru dipakai
+        'totalSertifikasi',
+        'totalSiswa',
+        'totalSertifikatBulanIni',
+        'totalAdminAktif'
+    ));
+}
 
     public function create()
     {
@@ -38,34 +49,26 @@ class SertifikatController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nis' => 'required|string|unique:sertifikats,nis',
-            'nama_siswa' => 'required|string',
+            'nis' => 'required|string|unique:siswas,nis',
+            'nama' => 'required|string',
         ]);
 
-        Sertifikat::create([
+        Siswa::create([
             'nis' => $request->nis,
-            'nama_siswa' => $request->nama_siswa,
-            'jenis_sertifikat' => $request->jenis_sertifikat ?? null,
-            'judul_sertifikat' => $request->judul_sertifikat ?? null,
-            'tanggal_diraih' => $request->tanggal_diraih ?? null,
-            'foto_sertifikat' => null,
+            'nama' => $request->nama,
         ]);
 
-        return redirect()->route('dashboard')->with('success', 'Siswa baru berhasil ditambahkan!');
+        return redirect()->route('dashboard')->with('success', 'Siswa baru berhasil ditambahkan.');
     }
 
     public function storePhoto(Request $request)
     {
         $request->validate([
-            'nis' => 'required|string|exists:sertifikats,nis',
+            'sertifikat_id' => 'required|exists:sertifikats,id',
             'foto_sertifikat' => 'required|image|mimes:jpg,jpeg,png|max:5120'
         ]);
 
-        $sertifikat = Sertifikat::where('nis', $request->nis)->first();
-
-        if (!$sertifikat) {
-            return redirect()->back()->with('error', 'NIS tidak ditemukan di database.');
-        }
+        $sertifikat = Sertifikat::findOrFail($request->sertifikat_id);
 
         $fotoPath = $request->file('foto_sertifikat')->store('sertifikat_photos', 'public');
 
@@ -79,42 +82,64 @@ class SertifikatController extends Controller
             return redirect()->route('dashboard')->with('success', 'Foto sertifikat berhasil diperbarui!');
         } catch (\Exception $e) {
             Storage::disk('public')->delete($fotoPath);
-            return redirect()->back()->with('error', 'Gagal menyimpan: ' . $e->getMessage());
+            return back()->with('error', 'Gagal menyimpan: ' . $e->getMessage());
         }
     }
 
     // 🔹 FITUR UPLOAD MASSAL FOTO BERDASARKAN NIS
-    public function uploadMassal(Request $request)
-    {
-        $request->validate([
-            'foto_sertifikat.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+   public function uploadMassal(Request $request)
+{
+    $request->validate([
+        'foto_sertifikat'   => ['required','array'],
+        'foto_sertifikat.*' => ['file','image','mimes:jpeg,png,jpg','max:5120'],
+        'jenis_sertifikat'  => ['required','string','max:100'],
+        'judul_sertifikat'  => ['required','string','max:255'],
+        'tanggal_diraih'    => ['required','date'],
+    ]);
 
-        foreach ($request->file('foto_sertifikat') as $file) {
-            $nis = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+    $jenis = $request->string('jenis_sertifikat')->toString();
+    $judul = $request->string('judul_sertifikat')->toString();
+    $tanggal = Carbon::parse($request->input('tanggal_diraih'))->toDateString();
 
-            $sertifikat = Sertifikat::where('nis', $nis)->first();
+    $ok = $skipped = [];
 
-            if ($sertifikat) {
-                $path = $file->store('sertifikats', 'public');
-                $sertifikat->update([
-                    'foto_sertifikat' => $path,
-                ]);
-            } else {
-                Sertifikat::create([
-                    'nis' => $nis,
-                    'nama_siswa' => 'Belum diisi',
-                    'jenis_sertifikat' => null,
-                    'judul_sertifikat' => null,
-                    'tanggal_diraih' => null,
-                    'foto_sertifikat' => $file->store('sertifikats', 'public'),
-                ]);
-            }
+    foreach ($request->file('foto_sertifikat') as $file) {
+        // Ambil NIS dari nama file
+        $nis = trim(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+        
+        // Cek apakah siswa dengan NIS tersebut ada
+        $siswa = Siswa::where('nis', $nis)->first();
+        if (!$siswa) {
+            $skipped[] = "{$nis} (siswa tidak ditemukan)";
+            continue;
         }
 
-        return redirect()->route('dashboard')->with('success', 'Upload massal berhasil!');
+        // Simpan file sertifikat
+        $ext = strtolower($file->getClientOriginalExtension());
+        $filename = "{$nis}-" . now()->format('YmdHis') . "-" . Str::random(4) . ".{$ext}";
+        $path = $file->storeAs('sertifikats', $filename, 'public');
+
+        // Buat sertifikat baru
+        Sertifikat::create([
+            'nis' => $siswa->nis,
+            'jenis_sertifikat' => $jenis,
+            'judul_sertifikat' => $judul,
+            'tanggal_diraih' => $tanggal,
+            'foto_sertifikat' => $path
+        ]);
+
+        $ok[] = "{$nis} → {$filename}";
     }
 
+    $msg = "Upload massal selesai. Berhasil: " . count($ok);
+    if ($skipped) {
+        $msg .= ". Dilewati: " . count($skipped);
+    }
+
+    return redirect()->route('dashboard')
+        ->with('success', $msg)
+        ->with('skipped', $skipped);
+}
     // ===== Tambahan dari controller lama (Edit, Update, Destroy) =====
     public function edit($id)
     {
@@ -134,7 +159,7 @@ class SertifikatController extends Controller
             'foto_sertifikat' => 'nullable|image|mimes:jpg,jpeg,png|max:5120',
         ]);
 
-        $data = $request->only(['nama_siswa','jenis_sertifikat','judul_sertifikat','tanggal_diraih']);
+        $data = $request->only(['nama_siswa', 'jenis_sertifikat', 'judul_sertifikat', 'tanggal_diraih']);
 
         if ($request->hasFile('foto_sertifikat')) {
             if ($sertifikat->foto_sertifikat && Storage::disk('public')->exists($sertifikat->foto_sertifikat)) {
@@ -211,7 +236,7 @@ class SertifikatController extends Controller
         ]);
     }
 
-     public function show($id)
+    public function show($id)
     {
         try {
             $sertifikat = Sertifikat::findOrFail($id);
@@ -253,11 +278,7 @@ class SertifikatController extends Controller
     }
 
     // ====== Import Excel ======
-    public function importForm()
-    {
-        return view('sertifikat.import');
-    }
-
+  
     public function downloadTemplate()
     {
         $filePath = public_path('templates/test project 3 bulan.xlsx');
@@ -267,50 +288,4 @@ class SertifikatController extends Controller
         return redirect()->back()->with('error', 'File template tidak ditemukan.');
     }
 
-    public function importExcel(Request $request)
-    {
-        $request->validate(['file' => 'required|mimes:xlsx,xls']);
-
-        try {
-            $import = new \App\Imports\SertifikatImport;
-            Excel::import($import, $request->file('file'));
-            $importedData = $import->data;
-
-            $request->session()->put('imported_sertifikats', $importedData);
-
-            return redirect()->route('sertifikat.preview')->with('success', 'File Excel berhasil diunggah. Silakan tinjau data sebelum diimpor.');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal mengimpor: ' . $e->getMessage());
-        }
-    }
-
-    public function previewImport(Request $request)
-    {
-        return view('sertifikat.preview');
-    }
-
-    public function confirmImport(Request $request)
-    {
-        $sertifikats = $request->input('sertifikats');
-
-        if (empty($sertifikats)) {
-            return redirect()->route('sertifikat.import.form')->with('error', 'Tidak ada data untuk diimpor.');
-        }
-
-        foreach ($sertifikats as $index => $data) {
-            $fotoPath = null;
-            if ($request->hasFile("foto_sertifikat.$index")) {
-                $fotoPath = $request->file("foto_sertifikat.$index")->store('sertifikat', 'public');
-            }
-
-            Sertifikat::create([
-                'nis' => $data['nis'],
-                'nama_siswa' => $data['nama_siswa'],
-            ]);
-        }
-
-        $request->session()->forget('imported_sertifikats');
-
-        return redirect()->route('dashboard')->with('success', 'Semua data berhasil diimpor!');
-    }
 }
