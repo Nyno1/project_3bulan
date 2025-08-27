@@ -48,7 +48,7 @@
                             <input 
                                 id="searchInput"
                                 type="text" 
-                                placeholder="Ketik nama siswa..."
+                                placeholder="Masukan nama lengkap!!!"
                                 class="input-enhanced w-full border-0 focus:ring-0 text-gray-700 placeholder-gray-400 rounded-lg p-2"
                             >
                         </div>
@@ -142,11 +142,11 @@
             
             // Tab event listeners
             tabNama.addEventListener('click', () => {
-                setActiveTab(tabNama, tabNis, 'Masukan nama siswa...', 'nama');
+                setActiveTab(tabNama, tabNis, 'Masukan nama lengkap!!!', 'nama');
             });
             
             tabNis.addEventListener('click', () => {
-                setActiveTab(tabNis, tabNama, 'Masukan NIS siswa...', 'nis');
+                setActiveTab(tabNis, tabNama, 'Masukan NIS lengkap!!!', 'nis');
             });
             
             // Search function
