@@ -18,7 +18,7 @@ class SertifikatImport implements ToCollection, WithHeadingRow, WithValidation
         $this->data = $rows->map(function ($row) {
             return [
                 'nis'               => $row['nis'],
-                'nama_siswa'        => $row['nama_siswa'],
+                'nama'        => $row['nama'],
               
             ];
         });
@@ -28,7 +28,7 @@ class SertifikatImport implements ToCollection, WithHeadingRow, WithValidation
     {
         return [
             'nis'               => 'required',
-            'nama_siswa'        => 'required',
+            'nama'        => 'required',
           
         ];
     }

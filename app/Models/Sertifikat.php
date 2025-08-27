@@ -7,19 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sertifikat extends Model
 {
-    use HasFactory;
-     protected $fillable = [
+    protected $fillable = [
         'nis',
-        'nama_siswa',
-        'jenis_sertifikat',
+        'jenis_sertifikat', 
         'judul_sertifikat',
         'tanggal_diraih',
-        'foto_sertifikat',
+        'foto_sertifikat'
     ];
 
-    protected $casts = [
-        'foto_sertifikat' => 'array',
-        'tanggal_diraih' => 'date', // Tambahkan baris ini
-    ];
-
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'nis', 'nis');
+    }
 }
+
