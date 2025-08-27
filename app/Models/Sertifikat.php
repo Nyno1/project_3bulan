@@ -20,4 +20,3 @@ class Sertifikat extends Model
         return $this->belongsTo(Siswa::class, 'nis', 'nis');
     }
 }
-
