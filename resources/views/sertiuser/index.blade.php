@@ -292,7 +292,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="animate-slideInLeft neumorphism-inset rounded-xl p-4">
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Siswa</label>
-                                <p class="text-gray-900 font-bold text-lg">${cert.nama_siswa}</p>
+                                <p class="text-gray-900 font-bold text-lg">${cert.nama}</p>
                             </div>
                             <div class="animate-slideInRight neumorphism-inset rounded-xl p-4">
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">NIS</label>
