@@ -328,11 +328,32 @@ class SertifikatController extends Controller
 
     public function downloadTemplate()
     {
-        $filePath = public_path('templates/test project 3 bulan.xlsx');
-        if (file_exists($filePath)) {
-            return response()->download($filePath, 'test project 3 bulan.xlsx');
+        $filePath = public_path('templates/data siswa.xlsx');
+        if (!file_exists($filePath)) {
+            // Cek juga di storage
+            $storagePath = storage_path('app/templates/data siswa.xlsx');
+            if (file_exists($storagePath)) {
+                $filePath = $storagePath;
+            } else {
+                return redirect()->back()->with('error', 'File template tidak ditemukan di: ' . $filePath);
+            }
         }
-        return redirect()->back()->with('error', 'File template tidak ditemukan.');
+        
+        // Cek apakah file bisa dibaca
+        if (!is_readable($filePath)) {
+            return redirect()->back()->with('error', 'File template tidak dapat dibaca. Periksa permission file.');
+        }
+        
+        try {
+            return response()->download($filePath, 'template-sertifikat.xlsx', [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            ]);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal mendownload template: ' . $e->getMessage());
+        }
     }
+
+    
+    
 
 }
