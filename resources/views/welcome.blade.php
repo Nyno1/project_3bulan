@@ -93,7 +93,7 @@
 
         <div class="relative z-10 text-center mb-16" data-aos="fade-up">
             <div class="inline-block relative">
-                <h2 class="text-4xl md:text-5xl mb-2 font-black bg-gradient-to-r from-gray-800 via-blue-600 to-orange-500 bg-clip-text text-transparent">
+                <h2 class="text-4xl md:text-5xl mb-2 font-black bg-gradient-to-r from-gray-800 via-blue-600 to-orange-500 bg-clip-text py-2 text-transparent">
                     Ikuti Kegiatan Terbaru
                 </h2>
                 <div class="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-blue-500 to-orange-500 rounded-full"></div>
