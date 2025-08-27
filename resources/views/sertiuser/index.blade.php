@@ -10,6 +10,7 @@
 </head>
     <body class="relative bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 text-gray-800 font-sans transition-colors duration-300 bg-pattern">
         @include('profile.partials.navbar-user')
+        <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
 
         <!-- Background animation -->
         <canvas id="bgCanvas" class="absolute inset-0 w-full h-full z-0"></canvas>
@@ -348,7 +349,7 @@
                 }
             });
             
-            // Function to close modal with animation
+            // close modal
             function closeModalWithAnimation() {
                 const modal = certificateModal;
                 const dialog = document.getElementById('modalDialog');
@@ -360,13 +361,33 @@
                 modal.classList.add('opacity-0', 'invisible');
             }
             
-            // Add escape key support
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' && !certificateModal.classList.contains('invisible')) {
                     closeModalWithAnimation();
                 }
             });
         });
+
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles1');
+            if (!particlesContainer) return;
+            
+            setInterval(() => {
+                const particle = document.createElement('div');
+                particle.className = 'particlee';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.width = particle.style.height = Math.random() * 8 + 4 + 'px';
+                particle.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                particle.style.animationDelay = Math.random() * 2 + 's';
+                particlesContainer.appendChild(particle);
+                
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.remove();
+                    }
+                }, 6000);
+            }, 800);
+        }
         </script>
     </body>
 </html>

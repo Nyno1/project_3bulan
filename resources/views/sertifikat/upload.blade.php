@@ -12,8 +12,10 @@
       :class="open ? 'ml-64' : 'ml-16'"
       class="transition-all duration-300">
 
-    <div class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 via-white to-blue-50 relative overflow-hidden py-12 px-4 sm:px-6 lg:px-8">
-      
+    <div class="relative py-12 min-h-screen bg-gradient-to-br from-indigo-100 via-white to-blue-100 overflow-hidden flex items-center justify-center">
+      <div class="absolute inset-0 opacity-20 bg-[url('https://www.toptal.com/designers/subtlepatterns/uploads/dot-grid.png')]"></div>
+      <div class="absolute -top-20 -left-20 w-72 h-72 bg-indigo-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
+      <div class="absolute bottom-0 right-0 w-96 h-96 bg-orange-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-pulse"></div>
       <div class="absolute inset-0">
         <img src="/images/pattern.png" alt="Background Pattern" class="w-full h-full object-cover opacity-20 pointer-events-none">
       </div>
@@ -91,33 +93,27 @@
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Jenis Sertifikat</label>
+                <select name="jenis_sertifikat" required 
+                        class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <option value="" disabled selected>Pilih jenis sertifikat</option>
+                    <option value="BNSP">BNSP</option>
+                    <option value="Kompetensi">Kompetensi</option>
+                    <option value="Internasional">Internasional</option>
+                </select>
+            </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700">Tanggal Diraih</label>
+                <input type="date" name="tanggal_diraih" required class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+              </div>
+          </div>
           <div>
-    <label class="block text-sm font-medium text-gray-700">Jenis Sertifikat</label>
-    <select name="jenis_sertifikat" required 
-            class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-        <option value="" disabled selected>Pilih jenis sertifikat</option>
-        <option value="BNSP">BNSP</option>
-        <option value="Kompetensi">Kompetensi</option>
-        <option value="Internasional">Internasional</option>
-    </select>
-</div>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-700">Judul Sertifikat</label>
-              <input type="text" name="judul_sertifikat" required
-                     class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                     placeholder="Masukkan judul sertifikat">
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-gray-700">Tanggal Diraih</label>
-              <input type="date" name="tanggal_diraih" required
-                     class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
-            </div>
+            <label class="block text-sm font-medium text-gray-700">Judul Sertifikat</label>
+            <input type="text" name="judul_sertifikat" required placeholder="Masukkan judul sertifikat" class="mt-1 block w-full rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
           </div>
           <div class="flex justify-end mt-6">
-            <button type="submit" 
-                    class="px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200">
+            <button type="submit" class="px-6 py-3 bg-blue-600 text-white font-medium rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200">
               Upload Sertifikat
             </button>
           </div>
