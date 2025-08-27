@@ -88,7 +88,7 @@
                             </svg>
                             Nama Siswa
                         </label>
-                        <input type="text" name="nama_siswa" required placeholder="Masukkan Nama Siswa"
+                        <input type="text" name="nama" required placeholder="Masukkan Nama Siswa"
                             class="w-full border-2 border-blue-200 rounded-xl px-4 py-3 focus:outline-none focus:border-blue-600 focus:ring-4 focus:ring-blue-100 transition-all duration-200 cursor-pointer bg-white text-gray-700 font-medium hover:border-blue-300">
                     </div>
 
