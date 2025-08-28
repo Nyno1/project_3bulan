@@ -61,4 +61,12 @@ Route::post('/api/sertifikat/search', [SertifikatController::class, 'searchApi']
 Route::get('/sertifikat/{id}', [SertifikatController::class, 'show'])->name('sertifikat.show');
 Route::post('/api/sertifikat/verify', [SertifikatController::class, 'verify'])->name('sertifikat.verify');
 
+
+// edit form
+Route::get('/sertifikat/{id}/edit', [SertifikatController::class, 'edit'])->name('sertifikat.edit');
+// update data
+Route::put('/sertifikat/{id}', [SertifikatController::class, 'update'])->name('sertifikat.update');
+// hapus data
+Route::delete('/sertifikat/{id}', [SertifikatController::class, 'destroy'])->name('sertifikat.destroy');
+
 require __DIR__ . '/auth.php';
