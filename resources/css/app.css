@@ -359,27 +359,6 @@
                 0 8px 16px rgba(0, 0, 0, 0.06);
         }
 
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: linear-gradient(45deg, #3b82f6, #f97316);
-            border-radius: 50%;
-            opacity: 0.6;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
-        .particle:nth-child(2) { left: 20%; animation-delay: 1s; }
-        .particle:nth-child(3) { left: 30%; animation-delay: 2s; }
-        .particle:nth-child(4) { left: 40%; animation-delay: 0.5s; }
-        .particle:nth-child(5) { left: 50%; animation-delay: 1.5s; }
-        .particle:nth-child(6) { left: 60%; animation-delay: 2.5s; }
-        .particle:nth-child(7) { left: 70%; animation-delay: 3s; }
-        .particle:nth-child(8) { left: 80%; animation-delay: 3.5s; }
-        .particle:nth-child(9) { left: 90%; animation-delay: 4s; }
-        .particle:nth-child(10) { left: 95%; animation-delay: 4.5s; }
-
         /* Scroll indicator */
         .scroll-indicator {
             position: absolute;
@@ -410,7 +389,6 @@
             100% { transform: translateX(-50%) translateY(20px); opacity: 0; }
         }
 
-/* Enhanced Navbar */
     .glass-effect {
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
@@ -441,7 +419,6 @@
         height: 200%;
     }
     
-    /* Logo animation */
     .logo-container {
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
@@ -582,28 +559,12 @@
             transform: translateY(-1px) translateZ(0);
         }
         
-        .particlee {
+        .particle {
             position: absolute;
             background: rgba(22, 80, 172, 0.6);
             border-radius: 50%;
             pointer-events: none;
             animation: particleFloat 4s linear infinite;
-        }
-        
-        .shimmer-effect {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .shimmer-effect::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            animation: shimmer 2s infinite;
         }
         
         .hover-lift {
