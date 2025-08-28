@@ -152,7 +152,6 @@ class SertifikatController extends Controller
         $sertifikat = Sertifikat::findOrFail($id);
 
         $request->validate([
-            'nama_siswa' => 'required|string',
             'jenis_sertifikat' => 'nullable|string',
             'judul_sertifikat' => 'nullable|string',
             'tanggal_diraih' => 'nullable|date',
