@@ -14,7 +14,7 @@
     <div class="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-blue-100 py-12 px-4 relative overflow-hidden">
         <div id="particles" class="fixed inset-0 pointer-events-none z-0"></div>
         
-        <!-- Decorative Floating Elements -->
+        <!-- Decorasi elemen -->
         <div class="absolute top-10 left-10 w-32 h-32 bg-blue-200 rounded-full opacity-20 float-animation"></div>
         <div class="absolute bottom-20 right-20 w-24 h-24 bg-blue-300 rounded-full opacity-30 float-animation" style="animation-delay: -2s;"></div>
         <div class="absolute top-1/2 left-5 w-16 h-16 bg-blue-400 rounded-full opacity-25 float-animation" style="animation-delay: -4s;"></div>
@@ -22,7 +22,7 @@
         
         <div class="max-w-2xl mx-auto relative z-10">
             <div class="text-center mb-8 slide-in-left">
-                <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 rounded-full mb-6 glow-effect shadow-2xl shimmer-effect">
+                <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 rounded-full mb-6 glow-effect shadow-2xl">
                     <svg class="w-10 h-10 text-white relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
@@ -178,12 +178,12 @@
     <!-- JavaScript -->
     <script>
         function createParticles() {
-            const particlesContainer = document.getElementById('particles1');
+            const particlesContainer = document.getElementById('particles');
             if (!particlesContainer) return;
             
             setInterval(() => {
                 const particle = document.createElement('div');
-                particle.className = 'particlee';
+                particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.width = particle.style.height = Math.random() * 8 + 4 + 'px';
                 particle.style.animationDuration = (Math.random() * 3 + 2) + 's';

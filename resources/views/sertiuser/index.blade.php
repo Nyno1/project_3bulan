@@ -15,7 +15,7 @@
         <!-- Background animation -->
         <canvas id="bgCanvas" class="absolute inset-0 w-full h-full z-0"></canvas>
 
-        <!-- Floating decoration elements -->
+        <!-- Bg decoration -->
         <div class="absolute top-20 left-10 w-20 h-20 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full opacity-10 animate-floating"></div>
         <div class="absolute top-40 right-20 w-32 h-32 bg-gradient-to-br from-pink-400 to-yellow-400 rounded-full opacity-10 animate-floating" style="animation-delay: -1s;"></div>
         <div class="absolute bottom-20 left-1/4 w-16 h-16 bg-gradient-to-br from-green-400 to-blue-500 rounded-full opacity-10 animate-floating" style="animation-delay: -2s;"></div>
@@ -58,7 +58,7 @@
                         </button>
                     </div>
                     
-                    <!-- Loading indicator -->
+                    <!-- Loading -->
                     <div id="loadingIndicator" class="hidden mt-6 animate-bounceIn">
                         <div class="flex justify-center items-center">
                             <div class="animate-spin rounded-full h-10 w-10 border-b-3 border-blue-600"></div>
@@ -69,7 +69,7 @@
             </section>
         </div>
 
-        <!-- Results Section -->
+        <!-- Hasil -->
         <section id="resultsSection" class="hidden px-6 pb-20">
             <div class="max-w-6xl mx-auto">
                 <div id="resultsHeader" class="mb-8 text-center">
@@ -78,7 +78,7 @@
                 </div>
                 
                 <div id="resultsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Results will be populated here -->
+                    <!-- Tampilan -->
                 </div>
                 
                 <div id="noResults" class="hidden text-center py-16">
@@ -91,7 +91,7 @@
             </div>
         </section>
 
-        <!-- Certificate Detail Modal -->
+        <!-- Modal Sertifikat -->
         <div id="certificateModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50 p-4 opacity-0 invisible transition-all duration-300 ease-in-out backdrop-blur-sm">
             <div id="modalDialog" class="modal-enhanced rounded-2xl max-w-2xl w-full max-h-90vh overflow-y-auto transform scale-95 transition-all duration-300 ease-in-out">
                 <div class="p-8">
@@ -100,7 +100,7 @@
                         <button id="closeModal" class="text-gray-400 hover:text-gray-600 text-3xl transform hover:scale-110 hover:rotate-90 transition-all duration-300">&times;</button>
                     </div>
                     <div id="modalContent">
-                        <!-- Modal content will be populated here -->
+                        <!-- Isi Modal -->
                     </div>
                 </div>
             </div>
@@ -369,12 +369,12 @@
         });
 
         function createParticles() {
-            const particlesContainer = document.getElementById('particles1');
+            const particlesContainer = document.getElementById('particles');
             if (!particlesContainer) return;
             
             setInterval(() => {
                 const particle = document.createElement('div');
-                particle.className = 'particlee';
+                particle.className = 'particle';
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.width = particle.style.height = Math.random() * 8 + 4 + 'px';
                 particle.style.animationDuration = (Math.random() * 3 + 2) + 's';

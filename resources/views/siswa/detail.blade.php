@@ -11,7 +11,6 @@
         class="transition-all duration-300">
 
         <main class="py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            <!-- Back Button -->
             <a href="{{ route('dashboard') }}" class="inline-flex items-center text-gray-600 hover:text-blue-600 mb-6 group transition-colors duration-200">
                 <svg class="w-5 h-5 mr-2 transform group-hover:-translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
@@ -19,7 +18,7 @@
                 Kembali ke Dashboard
             </a>
 
-            <!-- Student Info Card -->
+            <!-- siswa card -->
             <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 mb-8">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-4">
@@ -40,7 +39,7 @@
                 </div>
             </div>
 
-            <!-- Certificates Section -->
+            <!-- Sertifikat -->
             <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-bold text-gray-800">Daftar Sertifikat</h2>
@@ -73,11 +72,8 @@
                                 Diraih pada: {{ \Carbon\Carbon::parse($sertifikat->tanggal_diraih)->format('d M Y') }}
                             </p>
                         </div>
-                        <!-- Hover Actions -->
-                        <!-- Hover Actions -->
-                        <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 
-            transition-opacity duration-200 flex items-center justify-center space-x-2">
-
+                        <!-- Hover -->
+                        <div class="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex items-center justify-center space-x-2">
                             <!-- Lihat -->
                             <a href="{{ Storage::url($sertifikat->foto_sertifikat) }}" target="_blank"
                                 class="p-2 bg-white rounded-full hover:bg-blue-50 transition-colors duration-200">
@@ -85,9 +81,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 
-                     9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 
-                     0-8.268-2.943-9.542-7z" />
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                 </svg>
                             </a>
 
@@ -96,22 +90,23 @@
                                 class="p-2 bg-white rounded-full hover:bg-green-50 transition-colors duration-200">
                                 <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M11 4h2M12 2v2m6.364 1.636l-1.414 1.414M18 12h2m-2 0a6 6 0 
-                     11-12 0 6 6 0 0112 0z" />
+                                        d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
                             </a>
 
-                            <!-- Hapus -->
-                            <form action="{{ route('sertifikat.destroy', $sertifikat->id) }}" method="POST"
-                                onsubmit="return confirm('Yakin ingin menghapus sertifikat ini?');">
+                            <!-- Hapus  -->
+                            <button onclick="confirmDelete('{{ $sertifikat->id }}', '{{ $sertifikat->judul_sertifikat }}')"
+                                class="p-2 bg-white rounded-full hover:bg-red-50 transition-colors duration-200">
+                                <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
+
+                            <!-- Form tersembunyi untuk delete -->
+                            <form id="delete-form-{{ $sertifikat->id }}" action="{{ route('sertifikat.destroy', $sertifikat->id) }}" method="POST" style="display: none;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="p-2 bg-white rounded-full hover:bg-red-50 transition-colors duration-200">
-                                    <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
                             </form>
                         </div>
 
@@ -130,4 +125,70 @@
             </div>
         </main>
     </div>
+
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmDelete(sertifikatId, judulSertifikat) {
+            Swal.fire({
+                title: 'Hapus Sertifikat?',
+                text: `Apakah Anda yakin ingin menghapus sertifikat "${judulSertifikat}"? `,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ef4444',
+                cancelButtonColor: '#6b7280',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                reverseButtons: true,
+                customClass: {
+                    popup: 'rounded-2xl',
+                    confirmButton: 'rounded-xl px-6 py-2',
+                    cancelButton: 'rounded-xl px-6 py-2'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById(`delete-form-${sertifikatId}`).submit();
+                    
+                    Swal.fire({
+                        title: 'Menghapus...',
+                        text: 'Sedang menghapus sertifikat',
+                        icon: 'info',
+                        showConfirmButton: false,
+                        allowOutsideClick: false,
+                        customClass: {
+                            popup: 'rounded-2xl'
+                        }
+                    });
+                }
+            });
+        }
+
+        @if(session('success'))
+            Swal.fire({
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonColor: '#10b981',
+                confirmButtonText: 'OK',
+                customClass: {
+                    popup: 'rounded-2xl',
+                    confirmButton: 'rounded-xl px-6 py-2'
+                }
+            });
+        @endif
+
+        @if(session('error'))
+            Swal.fire({
+                title: 'Error!',
+                text: '{{ session('error') }}',
+                icon: 'error',
+                confirmButtonColor: '#ef4444',
+                confirmButtonText: 'OK',
+                customClass: {
+                    popup: 'rounded-2xl',
+                    confirmButton: 'rounded-xl px-6 py-2'
+                }
+            });
+        @endif
+    </script>
 </x-app-layout>
