@@ -280,7 +280,7 @@
                 modalContent.innerHTML = `
                     <div class="space-y-6 opacity-0 animate-fadeInUp">
                         <div class="text-center mb-8">
-                            <h4 class="text-2xl font-bold gradient-text mb-4 animate-slideInDown">${cert.jenis_sertifikat}</h4>
+                            <h4 class="text-2xl font-bold gradient-text mb-4 animate-slideInDown">${cert.judul_sertifikat}</h4>
                             <div class="neumorphism rounded-2xl p-6 transform hover:scale-105 transition-transform duration-500">
                                 <img src="{{ asset('storage') }}/${cert.foto_sertifikat}" 
                                     alt="Foto Sertifikat" 
